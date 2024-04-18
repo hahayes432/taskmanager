@@ -5,14 +5,14 @@ import {
    RouterProvider,
   } from 'react-router-dom';
 import './index.css';
-import App from './App.tsx';
 import Home from './pages/home.tsx';
+import Navbar from './components/navbar.tsx';
 
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App/>,
+    element: <Navbar/>,
     children: [
       {
         children: [
