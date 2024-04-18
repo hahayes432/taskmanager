@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
 import Home from "./pages/home.tsx";
 import Navbar from "./components/navbar.tsx";
+import Task from "./pages/task.tsx";
 
 const router = createBrowserRouter([
     {
@@ -11,7 +12,10 @@ const router = createBrowserRouter([
         element: <Navbar />,
         children: [
             {
-                children: [{ index: true, element: <Home /> }],
+                children: [
+                    { index: true, element: <Home /> },
+                    { path: "/task", element: <Task /> },
+                ],
             },
         ],
     },
