@@ -1,10 +1,9 @@
-
 export default function Home() {
-    return(
+    return (
         <>
             <div>
                 <h1>Home pagings</h1>
             </div>
         </>
-    )
+    );
 }
