@@ -5,3 +5,7 @@
 :root {
     background-color: rgba(200, 200, 200, 1);
 }
+
+.creationForm {
+    background-color: cyan;
+}
