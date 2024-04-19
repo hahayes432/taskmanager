@@ -18,6 +18,7 @@ export default function Navbar() {
                                 <div className="ml-10 flex items-baseline space-x-4">
                                     <Link to="/">Home</Link>
                                     <Link to="/task">Tasks</Link>
+                                    <Link to="/activity">Activities</Link>
                                 </div>
                             </div>
                         </div>
@@ -66,6 +67,7 @@ export default function Navbar() {
                     <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                         <Link to="/">Home</Link>
                         <Link to="/task">Tasks</Link>
+                        <Link to="/activity">Activities</Link>
                     </div>
                 </div>
             </nav>
