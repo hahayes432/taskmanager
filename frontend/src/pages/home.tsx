@@ -1,8 +1,10 @@
+import Box from "../components/box";
 export default function Home() {
     return (
         <>
             <div>
-                <h1>Home pagings</h1>
+                <Box></Box>
+                <Box></Box>
             </div>
         </>
     );
