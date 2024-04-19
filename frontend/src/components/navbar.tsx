@@ -1,4 +1,5 @@
 import { Link, Outlet } from "react-router-dom";
+import Notifications from "./notifications";
 
 export default function Navbar() {
     return (
@@ -19,6 +20,7 @@ export default function Navbar() {
                                     <Link to="/">Home</Link>
                                     <Link to="/task">Tasks</Link>
                                     <Link to="/activity">Activities</Link>
+                                    <Notifications />
                                 </div>
                             </div>
                         </div>
