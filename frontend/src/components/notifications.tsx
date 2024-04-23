@@ -7,7 +7,7 @@ export default function Notifications({ children, handleClick, show }) {
                     Notifications
                 </button>
                 {show ? (
-                    <dialog className="rounded-lg flex flex-col w-96 h-72 pb-3 bg-neutral-300">
+                    <dialog className="rounded-lg flex flex-col w-96 h-72 pb-3 bg-neutral-400 border border-neutral-600">
                         <div className="flex w-11/12 justify-between mx-auto mt-2">
                             {count > 0 ? (
                                 <h1>You have {count} notifications</h1>
