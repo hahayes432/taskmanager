@@ -1,7 +1,16 @@
 import { Link, Outlet } from "react-router-dom";
+import { useState } from "react";
 import Notifications from "./notifications";
 
 export default function Navbar() {
+    const [show, setShow] = useState<boolean>(false);
+    function showNotifications() {
+        if (show === true) {
+            setShow((old) => false);
+        } else {
+            setShow((old) => true);
+        }
+    }
     return (
         <>
             <nav className="bg-gray-800">
@@ -20,9 +29,21 @@ export default function Navbar() {
                                     <Link to="/">Home</Link>
                                     <Link to="/task">Tasks</Link>
                                     <Link to="/activity">Activities</Link>
-                                    <Notifications />
+                                    {/* <button onClick={showNotifications}>
+                                        Notifications
+                                    </button> */}
                                 </div>
                             </div>
+                        </div>
+                        <div>
+                            <Notifications
+                                show={show}
+                                handleClick={showNotifications}
+                            >
+                                {[...Array(30)].map((item, index) => {
+                                    return <p key={index}>what {index + 1}</p>;
+                                })}
+                            </Notifications>
                         </div>
                         <div className="-mr-2 flex md:hidden">
                             <button
