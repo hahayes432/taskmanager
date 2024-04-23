@@ -29,9 +29,6 @@ export default function Navbar() {
                                     <Link to="/">Home</Link>
                                     <Link to="/task">Tasks</Link>
                                     <Link to="/activity">Activities</Link>
-                                    {/* <button onClick={showNotifications}>
-                                        Notifications
-                                    </button> */}
                                 </div>
                             </div>
                         </div>
