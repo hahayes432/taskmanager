@@ -29,6 +29,7 @@ export default function Navbar() {
                                     <Link to="/">Home</Link>
                                     <Link to="/task">Tasks</Link>
                                     <Link to="/activity">Activities</Link>
+                                    <Link to="/statistics">Statistics</Link>
                                 </div>
                             </div>
                         </div>
