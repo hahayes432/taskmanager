@@ -1,8 +1,21 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Npgsql;
 
-public class SqiqqeliQueryController
+namespace backend
 {
+
+[ApiController]
+[Route("[controller]")]
+public class SqiqqeliQueryController : ControllerBase
+{
+    private readonly ILogger<SqiqqeliQueryController> _logger;
+
+    public SqiqqeliQueryController(ILogger<SqiqqeliQueryController> logger)
+    {
+        _logger = logger;
+    }
+
     public static async Task InsertTask(string name, string content, NpgsqlConnection conn)
     {
         await using var cmd = new NpgsqlCommand("INSERT INTO \"Task\" (\"Name\", \"Content\", \"StartDate\", \"EndDate\", \"ActivityId\", \"Status\", \"Tags\") VALUES (($1), ($2), ($3), ($4), ($5), ($6), ($7));", conn)
@@ -20,6 +33,22 @@ public class SqiqqeliQueryController
         };
 
         await cmd.ExecuteNonQueryAsync();
+    }
+
+    [HttpGet(Name = "Bennys")]
+    public async Task<Tasks> b_ennys( NpgsqlConnection conn)
+    {
+        await using var cmd = new NpgsqlCommand("Select * from \"task\"", conn);
+        
+        return new Tasks{
+            Name = "benny",
+            Content = "Benny's pizza kebob",
+            StartDate = DateTime.Now,
+            EndDate = DateTime.Now.AddDays(3657),
+            ActivityId = 1,
+            Status = 1,
+            Tags = [1,]
+        };
     }
 
     public static async Task InsertStatus(string title, string style, NpgsqlConnection conn)
@@ -87,4 +116,5 @@ public class SqiqqeliQueryController
 
         await cmd2.ExecuteNonQueryAsync();
     }
+}
 }
