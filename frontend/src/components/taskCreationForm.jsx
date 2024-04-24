@@ -3,6 +3,7 @@ import { useState } from "react";
 import Popup from "reactjs-popup";
 import DatePicker from "react-date-picker";
 import 'reactjs-popup/dist/index.css';
+import './task.css'
 
 export default function CreateTaskForm() {
     const [taskInfo, setTaskInfo] = useState({
