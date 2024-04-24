@@ -15,11 +15,18 @@ export default function CreateTaskForm() {
         relatedActivity: ''
     })
 
-    const options = [
+    const statusOptions = [
         "Done",
         "In progress",
         "New",
         "Cancelled",
+    ]
+
+    const activityOptions = [
+        "Job",
+        "School",
+        "Hobby",
+        "Chore",
     ]
 
     const handleChange = (e) => {
@@ -97,15 +104,34 @@ export default function CreateTaskForm() {
                                     <select
                                         onChange={handleChange}
                                         required 
+                                        name="status"
                                     >
-                                        <option>Please choose one option</option>
-                                            {options.map((option, index) => {
-                                                return (
-                                                    <option key={index}>
-                                                        {option}
-                                                    </option>
-                                                );
-                                            })}
+                                        <option>Status</option>
+                                        {statusOptions.map((option, index) => {
+                                            return (
+                                                <option key={index}>
+                                                    {option}
+                                                </option>
+                                            );
+                                        })}
+
+                                    </select>
+                                </div> 
+                                <div className="form-group">
+                                    <label htmlFor="relatedActivity"></label>
+                                    <select
+                                        onChange={handleChange}
+                                        required 
+                                        name="relatedActivity"
+                                    >
+                                        <option>Activity</option>
+                                        {activityOptions.map((option, index) => {
+                                            return (
+                                                <option key={index}>
+                                                    {option}
+                                                </option>
+                                            );
+                                        })}
 
                                     </select>
                                 </div> 
