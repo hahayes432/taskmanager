@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc.Routing;
 using Npgsql;
 
-public class SqiqqeliQuery
+public class SqiqqeliQueryController
 {
     public static async Task InsertTask(string name, string content, NpgsqlConnection conn)
     {
