@@ -5,11 +5,11 @@ var connectionString = "host=localhost;port=5432;database=taskmanager;username=p
 await using var conn = new NpgsqlConnection(connectionString);
 await conn.OpenAsync();
 
-await backend.SqiqqeliQueryController.InsertStatus("sdkmf", "sdfkdfmskfsdkmsdfmksdf sdfm mksfd", conn);
-await backend.SqiqqeliQueryController.InsertTag("bennys", "tomato, conn", conn);
-await backend.SqiqqeliQueryController.InsertActivityType("benny", conn);
-await backend.SqiqqeliQueryController.InsertActivity("benny's pizza", "kebab", "pizza.keb.ab", conn);
-await backend.SqiqqeliQueryController.InsertTask("dfkmawefawef", "aowiefjaweofiawefojiawefioawef awef iaw fwe", conn);
+// await backend.SqiqqeliQueryController.InsertStatus("sdkmf", "sdfkdfmskfsdkmsdfmksdf sdfm mksfd", conn);
+// await backend.SqiqqeliQueryController.InsertTag("bennys", "tomato, conn", conn);
+// await backend.SqiqqeliQueryController.InsertActivityType("benny", conn);
+// await backend.SqiqqeliQueryController.InsertActivity("benny's pizza", "kebab", "pizza.keb.ab", conn);
+// await backend.SqiqqeliQueryController.InsertTask("dfkmawefawef", "aowiefjaweofiawefojiawefioawef awef iaw fwe", conn);
 
 backend.SqiqqeliQueryController.SelectTask(conn);
 
