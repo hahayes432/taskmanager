@@ -5,6 +5,7 @@ import Popup from "reactjs-popup";
 import 'reactjs-popup/dist/index.css';
 import './task.css'
 import essentialAsset from '../assets/essentialAsset.png'
+// import taskItem from "../services/types.tsx";
 
 export default function CreateTaskForm() {
     const [taskInfo, setTaskInfo] = useState({
@@ -13,8 +14,8 @@ export default function CreateTaskForm() {
         startDate: new Date(),
         endDate: new Date(),
         tags: '',
-        status: '',
-        relatedActivity: ''
+        status: Number,
+        relatedActivity: Number
     })
 
     const statusOptions = [
@@ -78,10 +79,6 @@ export default function CreateTaskForm() {
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="endDate"></label>
-                                        {/* <DatePicker 
-                                            onChange={handleChange}>
-                                            value={taskInfo.endDate}
-                                        </DatePicker> */}
                                         <input 
                                             type="date"
                                             name="endDate"
@@ -138,7 +135,7 @@ export default function CreateTaskForm() {
 
                                         </select>
                                     </div> 
-                                    <button type="submit">Save</button>
+                                    <button type="submit" onClick={sessionStorage.setItem("localTask", taskInfo)}>Save</button>
                                 </form>
                             </div>
                             

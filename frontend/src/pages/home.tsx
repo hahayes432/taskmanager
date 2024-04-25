@@ -16,7 +16,11 @@ export default function Home() {
         activityId: 3,
     };
 
-    const aaa: taskItem[] = [...Array(5)].fill(task);
+    const aaa: taskItem[] = [...Array(3)].fill(task);
+    // const asdf = sessionStorage.getItem("localTask");
+    // if (asdf !== null) {
+    //     aaa.push(asdf);
+    // }
 
     return (
         <>
