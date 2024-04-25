@@ -1,9 +1,10 @@
 import React from "react";
 import { useState } from "react";
 import Popup from "reactjs-popup";
-import DatePicker from "react-date-picker";
+// import DatePicker from "react-date-picker";
 import 'reactjs-popup/dist/index.css';
 import './task.css'
+import essentialAsset from '../assets/essentialAsset.png'
 
 export default function CreateTaskForm() {
     const [taskInfo, setTaskInfo] = useState({
@@ -47,8 +48,8 @@ export default function CreateTaskForm() {
         <div>
             <Popup trigger={<button>Create task</button>} modal nested>
                 {(close) => (
-                    <>
-                        <div className="creationForm">
+                    <div className="flex flex-row">
+                        <div className="creationForm min-w-max">
                             <div className="Modal-header">Weclom E jeps</div>
 
                             <div className="Modal-body">
@@ -148,10 +149,10 @@ export default function CreateTaskForm() {
                             </div>     
                         </div>
                         
-                        <div>
-                            <img></img>
+                        <div className="w-2/4 min-h-full my-auto">
+                            <img src={essentialAsset} className="h-2/4 w-full"></img>
                         </div>
-                    </>
+                    </div>
                 )}
             </Popup>
         </div>

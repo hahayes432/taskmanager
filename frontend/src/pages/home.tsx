@@ -24,7 +24,6 @@ export default function Home() {
                 <CreateTaskForm />
             </div>
             <div className="flex">
-                <h1>Contents</h1>
                 {aaa.map((item, index) => {
                     return (
                         <Box>
