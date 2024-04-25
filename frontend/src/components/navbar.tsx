@@ -34,7 +34,7 @@ export default function Navbar() {
                                     </Link>
                                     <Link
                                         className="text-white bg-gray-800 px-4 py-2 rounded-lg hover:bg-gray-700"
-                                        to="/activities"
+                                        to="/activity"
                                     >
                                         Activities
                                     </Link>
