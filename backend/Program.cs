@@ -10,6 +10,7 @@ await conn.OpenAsync();
 // await backend.SqiqqeliQueryController.InsertActivityType("benny", conn);
 // await backend.SqiqqeliQueryController.InsertActivity("benny's pizza", "kebab", "pizza.keb.ab", conn);
 // await backend.SqiqqeliQueryController.InsertTask("dfkmawefawef", "aowiefjaweofiawefojiawefioawef awef iaw fwe", conn);
+// await backend.SqiqqeliQueryController.DeleteTask("dfkmawefawef", conn);
 
 backend.SqiqqeliQueryController.SelectTask(conn);
 
