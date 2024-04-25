@@ -17,19 +17,33 @@ export default function Navbar() {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex items-center justify-between h-16">
                         <div className="flex items-center">
-                            <div className="flex-shrink-0">
-                                <img
-                                    className="h-8 w-8"
-                                    src="/logo.svg"
-                                    alt="Logo"
-                                />
-                            </div>
+                            <div className="flex-shrink-0"></div>
                             <div className="hidden md:block">
                                 <div className="ml-10 flex items-baseline space-x-4">
-                                    <Link to="/">Home</Link>
-                                    <Link to="/task">Tasks</Link>
-                                    <Link to="/activity">Activities</Link>
-                                    <Link to="/statistics">Statistics</Link>
+                                    <Link
+                                        className="text-white bg-gray-800 px-4 py-2 rounded-lg hover:bg-gray-700"
+                                        to="/"
+                                    >
+                                        Home
+                                    </Link>
+                                    <Link
+                                        className="text-white bg-gray-800 px-4 py-2 rounded-lg hover:bg-gray-700"
+                                        to="/task"
+                                    >
+                                        Tasks
+                                    </Link>
+                                    <Link
+                                        className="text-white bg-gray-800 px-4 py-2 rounded-lg hover:bg-gray-700"
+                                        to="/activity"
+                                    >
+                                        Activities
+                                    </Link>
+                                    <Link
+                                        className="text-white bg-gray-800 px-4 py-2 rounded-lg hover:bg-gray-700"
+                                        to="/statistics"
+                                    >
+                                        Statictics
+                                    </Link>
                                 </div>
                             </div>
                         </div>
