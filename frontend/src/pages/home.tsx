@@ -7,7 +7,8 @@ export default function Home() {
     const task: taskItem = {
         id: 1,
         name: "Buy milk",
-        content: "Go to store and buy milk",
+        content:
+            "Go to store and buy milk. jklsdfdhlasd faklfhjklasdj faklösjfklö sdlaskDalsk sLKD LJK HSD FKAJHSFD KLJASFLJ Kkl jsklsöjklsdfjsklöadfj aslkdf jlkjadklöf",
         startDate: new Date(),
         endDate: new Date(),
         tags: [2, 3, 4],
@@ -23,15 +24,18 @@ export default function Home() {
                 <h1>Home pagings</h1>
                 <CreateTaskForm />
             </div>
-            <div className="flex">
+            {/* Edit this div to adjust size of task boxes */}
+            <div className="flex flex-col w-3/4">
                 {aaa.map((item, index) => {
                     return (
-                        <Box>
-                            <TaskElementConstructor
-                                key={index}
-                                data={item}
-                            ></TaskElementConstructor>
-                        </Box>
+                        <div className="min-h-fit max-w-fit">
+                            <Box>
+                                <TaskElementConstructor
+                                    key={index}
+                                    data={item}
+                                />
+                            </Box>
+                        </div>
                     );
                 })}
             </div>
