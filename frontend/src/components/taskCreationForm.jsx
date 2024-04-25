@@ -3,7 +3,7 @@ import { useState } from "react";
 import Popup from "reactjs-popup";
 // import DatePicker from "react-date-picker";
 import 'reactjs-popup/dist/index.css';
-import './task.css'
+import './component.css'
 import essentialAsset from '../assets/essentialAsset.png'
 // import taskItem from "../services/types.tsx";
 
