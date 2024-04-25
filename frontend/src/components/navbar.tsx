@@ -38,6 +38,12 @@ export default function Navbar() {
                                     >
                                         Activities
                                     </Link>
+                                    <Link
+                                        className="text-white bg-gray-800 px-4 py-2 rounded-lg hover:bg-gray-700"
+                                        to="/statistics"
+                                    >
+                                        Statictics
+                                    </Link>
                                 </div>
                             </div>
                         </div>
