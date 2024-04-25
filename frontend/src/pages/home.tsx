@@ -1,26 +1,40 @@
 import Box from "../components/box";
 import CreateTaskForm from "../components/taskCreationForm.jsx";
+import { taskItem } from "../services/types.js";
+import TaskElementConstructor from "../components/taskElement.js";
 
 export default function Home() {
+    const task: taskItem = {
+        id: 1,
+        name: "Buy milk",
+        content: "Go to store and buy milk",
+        startDate: new Date(),
+        endDate: new Date(),
+        tags: [2, 3, 4],
+        status: 2,
+        activityId: 3,
+    };
+
+    const aaa: taskItem[] = [...Array(5)].fill(task);
+
     return (
         <>
-            <div className="flex">
-                <Box>
-                    <h1>Contents 1</h1>
-                    <p>Additional content</p>
-                </Box>
-                <Box>
-                    <h1>Contents 2</h1>
-                    <p>More content</p>
-                </Box>
-                <Box>
-                    <h1>Contents 3</h1>
-                    <p>Even more content</p>
-                </Box>
-            </div>
-            <div>
+            <div className="gigaChad">
                 <h1>Home pagings</h1>
                 <CreateTaskForm />
+            </div>
+            <div className="flex">
+                <h1>Contents</h1>
+                {aaa.map((item, index) => {
+                    return (
+                        <Box>
+                            <TaskElementConstructor
+                                key={index}
+                                data={item}
+                            ></TaskElementConstructor>
+                        </Box>
+                    );
+                })}
             </div>
         </>
     );
