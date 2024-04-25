@@ -5,6 +5,7 @@ import "./index.css";
 import Home from "./pages/home.tsx";
 import Navbar from "./components/navbar.tsx";
 import Task from "./pages/task.tsx";
+import ActivityPage from "./pages/activity.tsx";
 
 const router = createBrowserRouter([
     {
@@ -15,6 +16,7 @@ const router = createBrowserRouter([
                 children: [
                     { index: true, element: <Home /> },
                     { path: "/task", element: <Task /> },
+                    { path: "/activity", element: <ActivityPage /> },
                 ],
             },
         ],
