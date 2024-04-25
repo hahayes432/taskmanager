@@ -7,6 +7,9 @@
     background-image: url("https://media.discordapp.net/attachments/366160654442299395/849700056163549214/image0-129.gif?ex=66327ad8&is=662005d8&hm=f68dac4b5d39d2c33e64ee642beaa8a792dc35a5fe96225d627beb84de8de358&");
 }
 
+canvas {
+    background-color: tomato;
+}
 .creationForm {
     background-color: cyan;
 }

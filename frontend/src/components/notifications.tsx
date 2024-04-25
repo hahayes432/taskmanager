@@ -3,7 +3,10 @@ export default function Notifications({ children, handleClick, show }) {
     return (
         <>
             <div className="relative">
-                <button className="text-white" onClick={handleClick}>
+                <button
+                    className="text-white bg-gray-800 px-4 py-2 rounded-lg hover:bg-gray-700"
+                    onClick={handleClick}
+                >
                     Notifications
                 </button>
                 {show ? (

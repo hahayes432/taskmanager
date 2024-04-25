@@ -6,6 +6,7 @@ import Home from "./pages/home.tsx";
 import Navbar from "./components/navbar.tsx";
 import Task from "./pages/task.tsx";
 import ActivityPage from "./pages/activity.tsx";
+import Statistics from "./pages/statistics.tsx";
 
 const router = createBrowserRouter([
     {
@@ -17,6 +18,7 @@ const router = createBrowserRouter([
                     { index: true, element: <Home /> },
                     { path: "/task", element: <Task /> },
                     { path: "/activity", element: <ActivityPage /> },
+                    { path: "/statistics", element: <Statistics /> },
                 ],
             },
         ],
