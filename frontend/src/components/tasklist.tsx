@@ -119,7 +119,11 @@ export default function TaskList() {
                                             <time
                                                 key={uuidv4()}
                                                 dateTime={item.startDate}
-                                            />
+                                            >
+                                                {item.startDate
+                                                    .toISOString()
+                                                    .slice(0, 10)}
+                                            </time>
                                         </td>
                                         <td
                                             key={uuidv4()}
