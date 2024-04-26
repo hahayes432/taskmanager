@@ -22,7 +22,6 @@ export default function Home() {
         <>
             <div className="gigaChad">
                 <h1>Home pagings</h1>
-                <CreateTaskForm />
             </div>
             {/* Edit this div to adjust size of task boxes */}
             <div className="flex flex-col w-3/4">

@@ -46,8 +46,8 @@ export default function CreateTaskForm() {
     }
 
     return (
-        <div>
-            <Popup trigger={<button>Create task</button>} modal nested>
+        <div className="mr-auto">
+            <Popup trigger={<button className="border border-black/25 px-1 bg-gradient-to-tr w-fit h-fit ml-auto" >Create task</button>} modal nested>
                 {(close) => (
                     <div className="flex flex-row">
                         <div className="creationForm min-w-max">

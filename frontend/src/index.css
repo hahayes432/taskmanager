@@ -3,10 +3,22 @@
 @tailwind utilities;
 
 :root {
+    overflow-x: hidden;
+    overflow-y: auto;
     background-color: rgba(200, 200, 200, 1);
     background-image: url("https://media.discordapp.net/attachments/366160654442299395/849700056163549214/image0-129.gif?ex=66327ad8&is=662005d8&hm=f68dac4b5d39d2c33e64ee642beaa8a792dc35a5fe96225d627beb84de8de358&");
 }
 
+canvas {
+    background-color: tomato;
+}
 .creationForm {
     background-color: cyan;
+}
+
+.what {
+    background: rgba(200, 200, 200, 0.5) url("https://media.discordapp.net/attachments/675766819688153116/932079136283979797/09B0C5D7-9497-4169-A34C-98DDC7052679.gif?ex=662ba797&is=662a5617&hm=cdfe7455560e835967775bec7bd2240a39607a4bb49a03998817b9554f131a73&")
+}
+.what2 {
+    background: gray url("https://cdn.discordapp.com/attachments/473062374400589828/802948317885235210/image0.gif?ex=662c88a5&is=662b3725&hm=e64d57dc163d57c37b498dd8487d75e11dadbc7576e8dd06f5638292fdffea88&");
 }

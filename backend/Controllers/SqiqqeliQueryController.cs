@@ -35,6 +35,19 @@ namespace backend
             await cmd.ExecuteNonQueryAsync();
         }
 
+        public static async Task DeleteTask(string name, NpgsqlConnection conn)
+        {
+            await using var cmd = new NpgsqlCommand("DELETE FROM \"Task\" WHERE \"Name\" = ($1);", conn)
+            {
+                Parameters =
+    {
+        new() { Value = name }
+    }
+            };
+
+            await cmd.ExecuteNonQueryAsync();
+        }
+
         [HttpGet(Name = "Bennys")]
         public async Task<Tasks> b_ennys(NpgsqlConnection conn)
         {
