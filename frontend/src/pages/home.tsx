@@ -1,8 +1,11 @@
 import Box from "../components/box";
 import { taskItem } from "../services/types.js";
+import { useState, useEffect } from "react";
 import TaskElementConstructor from "../components/taskElement.js";
+import GetTasks from "../services/taskApiCalls.js";
 
 export default function Home() {
+    const [test, setTest] = useState<taskItem>();
     const task: taskItem = {
         id: 1,
         name: "Buy milk",
@@ -16,6 +19,9 @@ export default function Home() {
     };
 
     const aaa: taskItem[] = [...Array(3)].fill(task);
+
+    const die = GetTasks();
+    console.log(die);
 
     return (
         <>
