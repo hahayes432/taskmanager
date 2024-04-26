@@ -1,11 +1,8 @@
 import React from "react";
 import { useState } from "react";
 import Popup from "reactjs-popup";
-// import DatePicker from "react-date-picker";
 import 'reactjs-popup/dist/index.css';
 import './component.css'
-
-// import taskItem from "../services/types.tsx";
 
 export default function CreateTaskForm() {
     const [taskInfo, setTaskInfo] = useState({
@@ -19,17 +16,17 @@ export default function CreateTaskForm() {
     })
 
     const statusOptions = [
-        "Done",
-        "In progress",
-        "New",
-        "Cancelled",
+        {id: 1, text: "Done"},
+        {id: 2, text: "In progress"},
+        {id: 3, text: "New"},
+        {id: 4, text: "Cancelled"},
     ]
 
     const activityOptions = [
-        "Job",
-        "School",
-        "Hobby",
-        "Chore",
+        {id: 1, text: "School"},
+        {id: 2, text: "Job"},
+        {id: 3, text: "Hobby"},
+        {id: 4, text: "Chore"},
     ]
 
     const handleChange = (e) => {
@@ -46,11 +43,11 @@ export default function CreateTaskForm() {
     }
 
     return (
-        <div>
-            <Popup trigger={<button>Create task</button>} modal nested className="w-0.5">
+        <div className="mr-auto">
+            <Popup trigger={<button className="border border-black/25 px-1 bg-gradient-to-tr w-fit h-fit ml-auto" >Create task</button>} modal nested>
                 {(close) => (
-                    
-                        <div className="creationForm">
+                    <div className="flex flex-row">
+                        <div className="creationForm min-w-max">
                             <div className="Modal-header">Weclom E jeps</div>
 
                             <div className="Modal-body">
@@ -145,8 +142,6 @@ export default function CreateTaskForm() {
                                 </div>
                             </div>     
                         </div>
-                    
-                   
                 )}
             </Popup>
         </div>

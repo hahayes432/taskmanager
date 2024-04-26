@@ -1,6 +1,5 @@
 import { taskItem } from "../services/types";
 
-
 export default function TaskElementConstructor({ data }: { data: taskItem }) {
     return (
         <div className="task-box w-full bg-gray-100 rounded-lg shadow-md p-4">
