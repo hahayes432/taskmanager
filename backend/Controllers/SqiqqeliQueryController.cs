@@ -1,10 +1,11 @@
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Npgsql;
 
 namespace backend
 {
-
+    [EnableCors("allow-all")]
     [ApiController]
     [Route("[controller]")]
     public class SqiqqeliQueryController : ControllerBase
