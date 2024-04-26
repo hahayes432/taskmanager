@@ -8,7 +8,7 @@ export default async function GetTasks() {
         const fetchTaskData = async () => {
             await axios
                 .get(
-                    "https://localhost:7296/SqiqqeliQueryController/Get tasks plus free eBooks for free"
+                    "https://localhost:7296/SqiqqeliQuery/Get tasks plus free eBooks for free"
                 )
                 .then((response) => {
                     setTaskData(response.data);
