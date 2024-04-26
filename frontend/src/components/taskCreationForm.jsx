@@ -104,10 +104,10 @@ export default function CreateTaskForm() {
                                             name="status"
                                         >
                                             <option>Status</option>
-                                            {statusOptions.map((option, index) => {
+                                            {statusOptions.map((option) => {
                                                 return (
-                                                    <option key={index}>
-                                                        {option}
+                                                    <option key={option.id} value={option.id}>
+                                                        {option.text}
                                                     </option>
                                                 );
                                             })}
@@ -122,17 +122,17 @@ export default function CreateTaskForm() {
                                             name="relatedActivity"
                                         >
                                             <option>Activity</option>
-                                            {activityOptions.map((option, index) => {
+                                            {activityOptions.map((option) => {
                                                 return (
-                                                    <option key={index}>
-                                                        {option}
+                                                    <option key={option.id} value={option.id}>
+                                                        {option.text}
                                                     </option>
                                                 );
                                             })}
 
                                         </select>
                                     </div> 
-                                    <button type="submit" onClick={sessionStorage.setItem("localTask", taskInfo)}>Save</button>
+                                    <button type="submit">Save</button>
                                 </form>
                             </div>
                             
@@ -142,8 +142,8 @@ export default function CreateTaskForm() {
                                 </div>
                             </div>     
                         </div>
-                    </div>
-                )}
+                    </div>  
+                )}  
             </Popup>
         </div>
     );
