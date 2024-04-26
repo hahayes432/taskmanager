@@ -15,7 +15,8 @@ TABLESPACE pg_default;
 ALTER TABLE IF EXISTS public."ActivityType"
     OWNER to postgres;
 	
-	
+	INSERT INTO public."ActivityType"("Name")
+	VALUES ('School'),('Work'),('Hobby'),('Chore');
 	
 	
 	
@@ -36,8 +37,8 @@ TABLESPACE pg_default;
 ALTER TABLE IF EXISTS public."Status"
     OWNER to postgres;
 	
-	
-	
+	INSERT INTO public."Status"("Title", "Style")
+	VALUES ('New', 'Style1'),('Ongoing', 'Style2'),('Done', 'Style3');
 	
 	
 	-- Table: public.Tag
@@ -56,8 +57,11 @@ TABLESPACE pg_default;
 
 ALTER TABLE IF EXISTS public."Tag"
     OWNER to postgres;
+
 	
-	
+
+INSERT INTO public."Tag"("Name", "Color")
+	VALUES ('Cool', 'Blue'),('Fun','Green'),('Stressful','Red');	
 
 
 
