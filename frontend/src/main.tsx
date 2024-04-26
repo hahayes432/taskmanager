@@ -7,18 +7,36 @@ import Navbar from "./components/navbar.tsx";
 import Task from "./pages/task.tsx";
 import ActivityPage from "./pages/activity.tsx";
 import Statistics from "./pages/statistics.tsx";
+import ErrorPage from "./pages/errorpage.tsx";
 
 const router = createBrowserRouter([
     {
         path: "/",
         element: <Navbar />,
+        errorElement: <ErrorPage />,
         children: [
             {
                 children: [
-                    { index: true, element: <Home /> },
-                    { path: "/task", element: <Task /> },
-                    { path: "/activity", element: <ActivityPage /> },
-                    { path: "/statistics", element: <Statistics /> },
+                    {
+                        index: true,
+                        element: <Home />,
+                        errorElement: <ErrorPage />,
+                    },
+                    {
+                        path: "/task",
+                        element: <Task />,
+                        errorElement: <ErrorPage />,
+                    },
+                    {
+                        path: "/activity",
+                        element: <ActivityPage />,
+                        errorElement: <ErrorPage />,
+                    },
+                    {
+                        path: "/statistics",
+                        element: <Statistics />,
+                        errorElement: <ErrorPage />,
+                    },
                 ],
             },
         ],
