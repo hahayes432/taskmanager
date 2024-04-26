@@ -29,23 +29,26 @@ export const options = {
         },
         title: {
             display: true,
-            text: "Chart.js Line Chart",
+            text: "Completed tasks in the last 30 days",
         },
     },
 };
 
-const labels = ["January", "February", "March", "April", "May", "June", "July"];
+// const array = [...Array(24).fill(1)];
 
-const array = [...Array(24).fill(1)];
-
+let array: number[] = [];
+const labels = [...Array(30)].map((item, index) => index);
+for (let i = 0; i < labels.length; i++) {
+    array.push(Math.floor(Math.random() * 312));
+}
 export const data = {
     labels,
     datasets: [
         {
             label: "Dataset 1",
             data: array,
-            borderColor: "rgb(255, 99, 132)",
-            backgroundColor: "rgba(255, 99, 132, 0.5)",
+            borderColor: "rgb(0, 99, 132)",
+            backgroundColor: "rgba(0, 99, 132, 0.5)",
         },
     ],
 };
