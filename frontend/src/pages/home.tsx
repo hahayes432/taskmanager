@@ -20,8 +20,8 @@ export default function Home() {
 
     return (
         <>
-            <div className="gigaChad">
-                <h1>Home pagings</h1>
+            <div className="w-full h-fit flex flex-row py-5">
+                <h1 className="font-bold text-lg mx-auto">Home page</h1>
             </div>
             {/* Edit this div to adjust size of task boxes */}
             <div className="flex flex-col w-3/4">
