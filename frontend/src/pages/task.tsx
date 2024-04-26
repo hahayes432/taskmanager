@@ -1,5 +1,4 @@
 import TaskList from "../components/tasklist";
-import CreateTaskForm from "../components/taskCreationForm.jsx";
 
 export default function Task() {
     return (
@@ -9,7 +8,6 @@ export default function Task() {
                     <h2 className="text-2xl font-bold">Tasks Page</h2>
                 </div>
                 <TaskList />
-                <CreateTaskForm />
             </div>
         </>
     );

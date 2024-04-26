@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid"; // fix warnings by generating unique keys in table mapping
+import CreateTaskForm from "../components/taskCreationForm.jsx";
 
 export default function TaskList() {
     const [page, setPage] = useState<number>(0);
@@ -223,6 +224,7 @@ export default function TaskList() {
                 </table>
             </div>
             <div className=" relative bg-yellow-400 w-3/4 mb-4 mx-auto flex flex-row row-span-6 justify-end">
+                <CreateTaskForm />
                 <button
                     value="prev"
                     className=" w-1/12 border border-black/25"
