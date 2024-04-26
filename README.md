@@ -10,7 +10,7 @@ dotnet run -lp "https" .\backend.csproj
 
 # Ryhmänjäsenet
 
-Antti N
-Arttu
-Heikki
+Antti N,
+Arttu,
+Heikki,
 Miro
