@@ -4,6 +4,20 @@ import Popup from "reactjs-popup";
 import DatePicker from "react-date-picker";
 import 'reactjs-popup/dist/index.css';
 import './task.css'
+import axios from 'axios';
+
+
+const API_URL = 'https://localhost:7296/';
+
+// Create new tasg
+export async function createTaskDB() {
+  const newTask = {
+    name: "New",
+    content: "Task"
+  }
+  const response = await axios.post(API_URL, newTask);
+  return response.data;
+}
 
 export default function CreateTaskForm() {
     const [taskInfo, setTaskInfo] = useState({
