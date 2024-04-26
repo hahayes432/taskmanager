@@ -1,7 +1,11 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace backend
 {
     public class Tasks
     {
+        [Key]
+        public int Id { get; set; }
         public string? Name { get; set; }
         public string? Content { get; set; }
         public DateTime StartDate { get; set; }
