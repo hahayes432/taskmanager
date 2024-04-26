@@ -38,12 +38,9 @@ export default function Home() {
             <div className="flex flex-col w-3/4">
                 {aaa.map((item, index) => {
                     return (
-                        <div className="min-h-fit max-w-fit">
+                        <div className="min-h-fit max-w-fit" key={index}>
                             <Box>
-                                <TaskElementConstructor
-                                    key={index}
-                                    data={item}
-                                />
+                                <TaskElementConstructor data={item} />
                             </Box>
                         </div>
                     );
