@@ -53,21 +53,28 @@ namespace backend
         }
 
         [HttpGet("Get tasks plus free eBooks for free")]
-        public object[][] GetTasks()
+        public List<Tasks> GetTasks()
         {
             conn.Open();
             var cmd = new NpgsqlCommand("SELECT * FROM \"Task\"", conn);
 
             NpgsqlDataReader reader = cmd.ExecuteReader();
 
-            List<object[]> jebulis = new List<object[]>();
-            object[] tasks = new object[reader.FieldCount];
+            List<Tasks> tasklist = new List<Tasks>();
             while (reader.Read())
             {
-                reader.GetValues(tasks);
-                jebulis.Add(tasks);
+                Tasks taskRow = new Tasks();
+                taskRow.Id = reader.GetInt32(0);
+                taskRow.Name = reader.GetString(1);
+                taskRow.Content = reader.GetString(2);
+                taskRow.StartDate = reader.GetDateTime(3);
+                taskRow.EndDate = reader.GetDateTime(4);
+                taskRow.ActivityId = reader.GetInt32(5);
+                taskRow.Status = reader.GetInt32(6);
+                taskRow.Tags = reader.GetInt32(7);
+                tasklist.Add(taskRow);
             }
-            return jebulis.ToArray();
+            return tasklist;
         }
 
         [HttpDelete("Delete task and press here for free eBook!")]

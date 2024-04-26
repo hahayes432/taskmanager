@@ -12,6 +12,6 @@ namespace backend
         public DateTime EndDate { get; set; }
         public int ActivityId { get; set; }
         public int Status { get; set; }
-        public int[]? Tags { get; set; }
+        public int? Tags { get; set; }
     }
 }
