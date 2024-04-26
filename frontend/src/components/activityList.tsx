@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid"; // fix warnings by generating unique keys in table mapping
+import { activityItem } from "../services/types";
 
 export default function ActivityList() {
     const [activityPage, setActivityPage] = useState<number>(0);
@@ -8,7 +9,9 @@ export default function ActivityList() {
     const now: Date = new Date();
     const end: Date = new Date();
     end.setDate(now.getDate() + 7);
-    const activity: any = {
+
+    //temporary item before backend call is added
+    const activity: activityItem = {
         id: 1,
         title: "lobster",
         description:
@@ -20,10 +23,10 @@ export default function ActivityList() {
         tags: [1, 2, 3],
         activityType: 1,
     };
-    const taskArray: any[] = [...Array(24)].fill(activity);
+    const activityArray: activityItem[] = [...Array(24)].fill(activity);
     const itemsPerPage = 8;
     const buttonLabels: number[] = [];
-    for (let i = 0; i < taskArray.length / itemsPerPage; i++) {
+    for (let i = 0; i < activityArray.length / itemsPerPage; i++) {
         buttonLabels.push(i + 1);
     }
     function changePage(e) {
@@ -40,7 +43,7 @@ export default function ActivityList() {
             );
         } else if (
             buttonPressed === "next" &&
-            newPage < taskArray.length / itemsPerPage - 1
+            newPage < activityArray.length / itemsPerPage - 1
         ) {
             //next page if there still is one
             newPage = activityPage + 1;
@@ -51,7 +54,7 @@ export default function ActivityList() {
             return;
         }
         console.log(activityPage);
-        for (let i = 0; i < taskArray.length; i++) {
+        for (let i = 0; i < activityArray.length; i++) {
             let row = document.getElementById(`${i}`); //a row of the table
             row?.classList.toggle(
                 "hidden",
@@ -98,8 +101,8 @@ export default function ActivityList() {
                         </tr>
                     </thead>
                     <tbody>
-                        {taskArray.map((item, index) => {
-                            if (index < 8) {
+                        {activityArray.map((item, index) => {
+                            if (index < itemsPerPage) {
                                 return (
                                     <tr id={index.toString()} key={uuidv4()}>
                                         {/* 
@@ -121,6 +124,7 @@ export default function ActivityList() {
                                         <td
                                             className=" max-h-6 border border-black/25 px-2 text-center"
                                             key={uuidv4()}
+                                            title={item.description}
                                         >
                                             {item.description.slice(0, 37) +
                                                 "..."}
@@ -183,7 +187,7 @@ export default function ActivityList() {
                                 );
                             }
                             {
-                                /* make first 8 visible in previous if statement and then make the rest hidden */
+                                /* make first page visible in previous if statement and then make the rest hidden */
                             }
                             return (
                                 <tr id={index.toString()} key={uuidv4()}>
