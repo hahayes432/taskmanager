@@ -103,7 +103,8 @@ TABLESPACE pg_default;
 ALTER TABLE IF EXISTS public."Activity"
     OWNER to postgres;
 	
-	
+	INSERT INTO public."Activity"("Title", "Description", "Url", "StartDate", "EndDate", "Status", "Tags", "ActivityType")
+	VALUES ('Milk eating', 'Gotta eat some milk every now and then', 'milk.eat', '2024-04-30', '2025-04-30', 1, 1, 1),('Kebab drinking', 'Must. Drink. Kebab', 'keb.abb', '2024-04-30', '2025-04-30', 2, 2, 2);
 	
 	
 	
@@ -144,3 +145,6 @@ TABLESPACE pg_default;
 
 ALTER TABLE IF EXISTS public."Task"
     OWNER to postgres;
+    
+    INSERT INTO public."Task"("Name", "Content", "StartDate", "EndDate", "ActivityId", "Status", "Tags")
+	VALUES ('Go eat milk', 'Milk eating at fridge', '2024-04-30', '2024-05-01', 1, 1, 1),('Drink kebab', 'Kebab drinking at restaurant', '2024-04-29', '2024-04-30', 2, 2, 2);
