@@ -20,7 +20,6 @@ export default function Home() {
             </div>
             <div>
                 <h1>Home pagings</h1>
-                <CreateTaskForm />
             </div>
         </>
     );

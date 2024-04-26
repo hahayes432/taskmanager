@@ -1,4 +1,5 @@
 import TaskList from "../components/tasklist";
+import CreateTaskForm from "../components/taskCreationForm.jsx";
 
 export default function Task() {
     return (
@@ -9,6 +10,7 @@ export default function Task() {
                 </div>
                 <TaskList />
                 {/* tähä tulee lista sit tosia  :DDDD */}
+                <CreateTaskForm />
             </div>
         </>
     );
