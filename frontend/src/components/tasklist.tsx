@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid"; // fix warnings by generating unique keys in table mapping
 import CreateTaskForm from "../components/taskCreationForm.jsx";
+import { taskItem } from "../services/types.js";
 
 export default function TaskList() {
     const [page, setPage] = useState<number>(0);
@@ -9,7 +10,7 @@ export default function TaskList() {
     const now: Date = new Date();
     const end: Date = new Date();
     end.setDate(now.getDate() + 7);
-    const task: any = {
+    const task: taskItem = {
         id: 1,
         name: "what",
         content:
@@ -20,7 +21,7 @@ export default function TaskList() {
         status: 1,
         activityId: 1,
     };
-    const taskArray: any[] = [...Array(24)].fill(task);
+    const taskArray: taskItem[] = [...Array(24)].fill(task);
     const itemsPerPage = 6;
     const buttonLabels: number[] = [];
     for (let i = 0; i < taskArray.length / itemsPerPage; i++) {
@@ -110,6 +111,7 @@ export default function TaskList() {
                                         <td
                                             className=" h-6 border border-black/25 px-2 text-center text-wrap overflow-hidden max-w-40"
                                             key={uuidv4()}
+                                            title={item.content}
                                         >
                                             {item.content.slice(0, 50) + "..."}
                                         </td>
