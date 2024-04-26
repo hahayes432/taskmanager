@@ -1,11 +1,11 @@
 import React from "react";
 import { useState } from "react";
 import Popup from "reactjs-popup";
-// import DatePicker from "react-date-picker";
 import 'reactjs-popup/dist/index.css';
 import './task.css'
 import essentialAsset from '../assets/essentialAsset.png'
 // import taskItem from "../services/types.tsx";
+// import DatePicker from "react-date-picker";
 
 export default function CreateTaskForm() {
     const [taskInfo, setTaskInfo] = useState({
@@ -19,17 +19,17 @@ export default function CreateTaskForm() {
     })
 
     const statusOptions = [
-        "Done",
-        "In progress",
-        "New",
-        "Cancelled",
+        {id: 1, text: "Done"},
+        {id: 2, text: "In progress"},
+        {id: 3, text: "New"},
+        {id: 4, text: "Cancelled"},
     ]
 
     const activityOptions = [
-        "Job",
-        "School",
-        "Hobby",
-        "Chore",
+        {id: 1, text: "School"},
+        {id: 2, text: "Job"},
+        {id: 3, text: "Hobby"},
+        {id: 4, text: "Chore"},
     ]
 
     const handleChange = (e) => {
@@ -107,10 +107,10 @@ export default function CreateTaskForm() {
                                             name="status"
                                         >
                                             <option>Status</option>
-                                            {statusOptions.map((option, index) => {
+                                            {statusOptions.map((option) => {
                                                 return (
-                                                    <option key={index}>
-                                                        {option}
+                                                    <option key={option.id} value={option.id}>
+                                                        {option.text}
                                                     </option>
                                                 );
                                             })}
@@ -125,17 +125,17 @@ export default function CreateTaskForm() {
                                             name="relatedActivity"
                                         >
                                             <option>Activity</option>
-                                            {activityOptions.map((option, index) => {
+                                            {activityOptions.map((option) => {
                                                 return (
-                                                    <option key={index}>
-                                                        {option}
+                                                    <option key={option.id} value={option.id}>
+                                                        {option.text}
                                                     </option>
                                                 );
                                             })}
 
                                         </select>
                                     </div> 
-                                    <button type="submit" onClick={sessionStorage.setItem("localTask", taskInfo)}>Save</button>
+                                    <button type="submit">Save</button>
                                 </form>
                             </div>
                             
