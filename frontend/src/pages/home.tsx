@@ -35,6 +35,21 @@ export default function Home() {
                     );
                 })}
             </div>
+            {/* Edit this div to adjust size of task boxes */}
+            <div className="flex flex-col w-3/4">
+                {aaa.map((item, index) => {
+                    return (
+                        <div className="min-h-fit max-w-fit">
+                            <Box>
+                                <TaskElementConstructor
+                                    key={index}
+                                    data={item}
+                                />
+                            </Box>
+                        </div>
+                    );
+                })}
+            </div>
         </>
     );
 }

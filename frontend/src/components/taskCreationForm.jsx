@@ -2,10 +2,7 @@ import React from "react";
 import { useState } from "react";
 import Popup from "reactjs-popup";
 import 'reactjs-popup/dist/index.css';
-import './task.css'
-import essentialAsset from '../assets/essentialAsset.png'
-// import taskItem from "../services/types.tsx";
-// import DatePicker from "react-date-picker";
+import './component.css'
 
 export default function CreateTaskForm() {
     const [taskInfo, setTaskInfo] = useState({
@@ -107,10 +104,10 @@ export default function CreateTaskForm() {
                                             name="status"
                                         >
                                             <option>Status</option>
-                                            {statusOptions.map((option) => {
+                                            {statusOptions.map((option, index) => {
                                                 return (
-                                                    <option key={option.id} value={option.id}>
-                                                        {option.text}
+                                                    <option key={index}>
+                                                        {option}
                                                     </option>
                                                 );
                                             })}
@@ -125,17 +122,17 @@ export default function CreateTaskForm() {
                                             name="relatedActivity"
                                         >
                                             <option>Activity</option>
-                                            {activityOptions.map((option) => {
+                                            {activityOptions.map((option, index) => {
                                                 return (
-                                                    <option key={option.id} value={option.id}>
-                                                        {option.text}
+                                                    <option key={index}>
+                                                        {option}
                                                     </option>
                                                 );
                                             })}
 
                                         </select>
                                     </div> 
-                                    <button type="submit">Save</button>
+                                    <button type="submit" onClick={sessionStorage.setItem("localTask", taskInfo)}>Save</button>
                                 </form>
                             </div>
                             
@@ -145,11 +142,6 @@ export default function CreateTaskForm() {
                                 </div>
                             </div>     
                         </div>
-                        
-                        <div className="w-2/4 min-h-full my-auto">
-                            <img src={essentialAsset} className="h-2/4 w-full"></img>
-                        </div>
-                    </div>
                 )}
             </Popup>
         </div>

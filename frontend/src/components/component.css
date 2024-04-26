@@ -11,3 +11,91 @@ margin-left: 5%;
     margin-top: 5%;
 
 }
+.box {
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.box:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.box:focus {
+    outline: none;
+}
+
+.creationForm {
+    font-family: Arial, sans-serif;
+    width: 400px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+  }
+  
+  .Modal-header {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .Modal-body .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .Modal-body label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .Modal-body input[type="text"],
+  .Modal-body input[type="date"],
+  .Modal-body select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  .Modal-body select {
+    appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+    background-repeat: no-repeat;
+    background-position-x: calc(100% - 12px);
+    background-position-y: center;
+  }
+  
+  .Modal-body button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .Modal-footer {
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .Modal-footer button {
+    padding: 10px 20px;
+    background-color: #ccc;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .Modal-footer button:hover {
+    background-color: #999;
+  }
+ 
