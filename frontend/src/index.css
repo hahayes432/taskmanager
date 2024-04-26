@@ -3,9 +3,22 @@
 @tailwind utilities;
 
 :root {
+    overflow-x: hidden;
+    overflow-y: auto;
     background-color: rgba(200, 200, 200, 1);
+    background-image: url("./assets/image0-129.gif");
 }
 
+canvas {
+    background-color: tomato;
+}
 .creationForm {
     background-color: cyan;
+}
+
+.what {
+    background: rgba(200, 200, 200, 0.8) url("./assets/09B0C5D7-9497-4169-A34C-98DDC7052679.gif")
+}
+.what2 {
+    background: rgba(200,200,200,0.8) url("./assets/image0.gif");
 }
