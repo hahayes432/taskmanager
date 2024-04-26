@@ -159,7 +159,7 @@ export default function TaskList() {
                                 );
                             }
                             {
-                                /* make first 8 visible in previous if statement and then make the rest hidden */
+                                /* make first page visible in previous if statement and then make the rest hidden */
                             }
                             return (
                                 <tr id={index.toString()} key={uuidv4()}>
