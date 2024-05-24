@@ -208,21 +208,23 @@ namespace backend
         }
 
         [HttpGet("GetTags")]
-        public IActionResult GetTags()
+        public List<Tag> GetTags()
         {
             conn.Open();
             var cmd = new NpgsqlCommand("SELECT * FROM \"Tag\"", conn);
 
-            if (cmd.ExecuteNonQuery() > 0)
+            NpgsqlDataReader reader = cmd.ExecuteReader();
+
+            List<Tag> tagList = new List<Tag>();
+            while (reader.Read())
             {
-                conn.Close();
-                return StatusCode(200, "OK");
+                Tag tagRow = new Tag();
+                tagRow.Id = reader.GetInt32(0);
+                tagRow.Name = reader.GetString(1);
+                tagRow.Color = reader.GetString(2);
+                tagList.Add(tagRow);
             }
-            else
-            {
-                conn.Close();
-                return StatusCode(500, "Internal Server Error");
-            }
+            return tagList;
         }
 
         [HttpDelete("DeleteTag")]
@@ -249,36 +251,18 @@ namespace backend
             }
         }
 
-        //     [HttpPost("InsertStatus")]
-        //     public IActionResult InsertStatus([FromQuery] string title, [FromQuery] string style)
-        //     {
-        //         conn.Open();
-        //         var cmd = new NpgsqlCommand("INSERT INTO \"Status\" (\"Title\", \"Style\") VALUES (($1), ($2));", conn)
-        //         {
-        //             Parameters =
-        // {
-        //     new() { Value = title },
-        //     new() { Value = style }
-        // }
-        //         };
-
-        //         if (cmd.ExecuteNonQuery() > 0)
-        //         {
-        //             conn.Close();
-        //             return StatusCode(200, "OK");
-        //         }
-        //         else
-        //         {
-        //             conn.Close();
-        //             return StatusCode(500, "Internal Server Error");
-        //         }
-        //     }
-
-        [HttpGet("GetStatuses")]
-        public IActionResult GetStatuses()
+        [HttpPost("InsertStatus")]
+        public IActionResult InsertStatus([FromQuery] string title, [FromQuery] string style)
         {
             conn.Open();
-            var cmd = new NpgsqlCommand("SELECT * FROM \"Status\"", conn);
+            var cmd = new NpgsqlCommand("INSERT INTO \"Status\" (\"Title\", \"Style\") VALUES (($1), ($2));", conn)
+            {
+                Parameters =
+        {
+            new() { Value = title },
+            new() { Value = style }
+        }
+            };
 
             if (cmd.ExecuteNonQuery() > 0)
             {
@@ -292,44 +276,114 @@ namespace backend
             }
         }
 
+        [HttpGet("GetStatuses")]
+        public List<Status> GetStatuses()
+        {
+            conn.Open();
+            var cmd = new NpgsqlCommand("SELECT * FROM \"Status\"", conn);
 
-        //     [HttpPost("InsertActivityType")]
-        //     public IActionResult InsertActivityType([FromQuery] string name)
-        //     {
-        //         conn.Open();
-        //         var cmd = new NpgsqlCommand("INSERT INTO \"ActivityType\" (\"Name\") VALUES (($1));", conn)
-        //         {
-        //             Parameters =
-        // {
-        //     new() { Value = name }
-        // }
-        //         };
-        //         if (cmd.ExecuteNonQuery() > 0)
-        //         {
-        //             conn.Close();
-        //             return StatusCode(200, "OK");
-        //         }
-        //         else
-        //         {
-        //             conn.Close();
-        //             return StatusCode(500, "Internal Server Error");
-        //         }
-        //     }
+            NpgsqlDataReader reader = cmd.ExecuteReader();
 
-        // [HttpGet("GetActivityTypes")]
-        // public IActionResult GetActivityTypes()
-        // {
-        //     conn.Open();
-        //     var cmd = new NpgsqlCommand("SELECT * FROM \"ActivityType\"", conn);
+            List<Status> statusList = new List<Status>();
+            while (reader.Read())
+            {
+                Status statusRow = new Status();
+                statusRow.Id = reader.GetInt32(0);
+                statusRow.Title = reader.GetString(1);
+                statusRow.Style = reader.GetString(2);
+                statusList.Add(statusRow);
+            }
+            return statusList;
+        }
 
-        //     NpgsqlDataReader reader = cmd.ExecuteReader();
+        [HttpDelete("DeleteStatus")]
+        public IActionResult DeleteStatus([FromQuery] int id)
+        {
+            conn.Open();
+            using var cmd = new NpgsqlCommand("DELETE FROM \"Status\" WHERE \"Id\" = ($1);", conn)
+            {
+                Parameters =
+    {
+        new() { Value = id }
+    }
+            };
 
+            if (cmd.ExecuteNonQuery() > 0)
+            {
+                conn.Close();
+                return StatusCode(200, "OK");
+            }
+            else
+            {
+                conn.Close();
+                return StatusCode(500, "Internal Server Error");
+            }
+        }
 
-        //     for (int i = 0; i < reader.FieldCount; i++)
-        //     {
-        //         reader.GetString(i);
-        //     }
+        [HttpPost("InsertActivityType")]
+        public IActionResult InsertActivityType([FromQuery] string name)
+        {
+            conn.Open();
+            var cmd = new NpgsqlCommand("INSERT INTO \"ActivityType\" (\"Name\") VALUES (($1));", conn)
+            {
+                Parameters =
+        {
+            new() { Value = name }
+        }
+            };
+            if (cmd.ExecuteNonQuery() > 0)
+            {
+                conn.Close();
+                return StatusCode(200, "OK");
+            }
+            else
+            {
+                conn.Close();
+                return StatusCode(500, "Internal Server Error");
+            }
+        }
 
-        // }
+        [HttpGet("GetActivityTypes")]
+        public List<ActivityType> GetActivityTypes()
+        {
+            conn.Open();
+            var cmd = new NpgsqlCommand("SELECT * FROM \"ActivityType\"", conn);
+
+            NpgsqlDataReader reader = cmd.ExecuteReader();
+
+            List<ActivityType> activityTypeList = new List<ActivityType>();
+            while (reader.Read())
+            {
+                ActivityType activityTypeRow = new ActivityType();
+                activityTypeRow.Id = reader.GetInt32(0);
+                activityTypeRow.Name = reader.GetString(1);
+                activityTypeList.Add(activityTypeRow);
+            }
+            return activityTypeList;
+        }
+
+        [HttpDelete("DeleteActivityType")]
+        public IActionResult DeleteActivityType([FromQuery] int id)
+        {
+            conn.Open();
+            using var cmd = new NpgsqlCommand("DELETE FROM \"ActivityType\" WHERE \"Id\" = ($1);", conn)
+            {
+                Parameters =
+    {
+        new() { Value = id }
+    }
+            };
+
+            if (cmd.ExecuteNonQuery() > 0)
+            {
+                conn.Close();
+                return StatusCode(200, "OK");
+            }
+            else
+            {
+                conn.Close();
+                return StatusCode(500, "Internal Server Error");
+            }
+        }
     }
 }
