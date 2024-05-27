@@ -2,28 +2,15 @@ import { useState } from "react";
 import { v4 as uuidv4 } from "uuid"; // fix warnings by generating unique keys in table mapping
 import { activityItem } from "../services/types";
 
-export default function ActivityList() {
+export default function ActivityList({
+    activityArray,
+}: {
+    activityArray: activityItem[];
+}) {
     const [activityPage, setActivityPage] = useState<number>(0);
     const [pageStartIndex, setPageStartIndex] = useState<number>(0);
     const [pageEndIndex, setPageEndIndex] = useState<number>(8);
-    const now: Date = new Date();
-    const end: Date = new Date();
-    end.setDate(now.getDate() + 7);
 
-    //temporary item before backend call is added
-    const activity: activityItem = {
-        id: 1,
-        title: "lobster",
-        description:
-            "the lobster are coming. start running the lobster are coming. start running the lobster are coming. start running the lobster are coming. start running the lobster are coming. start running the lobster are coming. start running the lobster are coming. start running the lobster are coming. start running ",
-        url: "bennys.pizza.keb.abb",
-        startDate: now,
-        endDate: end,
-        status: 1,
-        tags: [1, 2, 3],
-        activityType: 1,
-    };
-    const activityArray: activityItem[] = [...Array(24)].fill(activity);
     const itemsPerPage = 8;
     const buttonLabels: number[] = [];
     for (let i = 0; i < activityArray.length / itemsPerPage; i++) {
@@ -113,7 +100,7 @@ export default function ActivityList() {
                                             className=" max-h-6 border border-black/25 px-2 text-center"
                                             key={uuidv4()}
                                         >
-                                            {uuidv4()}
+                                            {item.id}
                                         </td>
                                         <td
                                             className=" max-h-6 border border-black/25 px-2 text-center"
@@ -126,8 +113,12 @@ export default function ActivityList() {
                                             key={uuidv4()}
                                             title={item.description}
                                         >
-                                            {item.description.slice(0, 37) +
-                                                "..."}
+                                            {item.description.length >= 37
+                                                ? item.description.slice(
+                                                      0,
+                                                      37
+                                                  ) + "..."
+                                                : item.description}
                                         </td>
                                         <td
                                             className=" max-h-6 border border-black/25 px-2 text-center"
@@ -144,7 +135,7 @@ export default function ActivityList() {
                                                 dateTime={item.startDate}
                                             >
                                                 {item.startDate
-                                                    .toISOString()
+                                                    .toString()
                                                     .slice(0, 10)}
                                             </time>
                                         </td>
@@ -154,12 +145,10 @@ export default function ActivityList() {
                                         >
                                             <time
                                                 key={uuidv4()}
-                                                dateTime={item.endDate.setDate(
-                                                    index
-                                                )}
+                                                dateTime={item.endDate}
                                             >
                                                 {item.endDate
-                                                    .toISOString()
+                                                    .toString()
                                                     .slice(0, 10)}
                                             </time>
                                         </td>
@@ -173,9 +162,7 @@ export default function ActivityList() {
                                             className=" max-h-6 border border-black/25 px-2"
                                             key={uuidv4()}
                                         >
-                                            {item.tags.map(
-                                                (i) => i.toString() + "  "
-                                            )}
+                                            {item.tags}
                                         </td>
                                         <td
                                             className=" max-h-6 border border-black/25 px-2 text-center"
@@ -217,6 +204,7 @@ export default function ActivityList() {
                                             key={uuidv4()}
                                             dateTime={item.startDate}
                                         />
+                                        {item.startDate.toString().slice(0, 10)}
                                     </td>
                                     <td
                                         key={uuidv4()}
@@ -227,7 +215,7 @@ export default function ActivityList() {
                                             dateTime={item.endDate}
                                         >
                                             {item.endDate
-                                                .toISOString()
+                                                .toString()
                                                 .slice(0, 10)}
                                         </time>
                                     </td>

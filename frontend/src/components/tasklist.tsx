@@ -3,28 +3,15 @@ import { v4 as uuidv4 } from "uuid"; // fix warnings by generating unique keys i
 import CreateTaskForm from "../components/taskCreationForm.jsx";
 import { taskItem } from "../services/types.js";
 
-export default function TaskList() {
+export default function TaskList({ data }: { data: taskItem[] }) {
     const [page, setPage] = useState<number>(0);
     const [startIndex, setStartIndex] = useState<number>(0);
     const [endIndex, setEndIndex] = useState<number>(8);
-    const now: Date = new Date();
-    const end: Date = new Date();
-    end.setDate(now.getDate() + 7);
-    const task: taskItem = {
-        id: 1,
-        name: "what",
-        content:
-            "what the hell what the hell what the hell what the hell what the hell what the hell what the hell what the hell ",
-        startDate: now,
-        endDate: end,
-        tags: [1, 2, 3],
-        status: 1,
-        activityId: 1,
-    };
-    const taskArray: taskItem[] = [...Array(24)].fill(task);
+
+    // console.log(data);
     const itemsPerPage = 6;
     const buttonLabels: number[] = [];
-    for (let i = 0; i < taskArray.length / itemsPerPage; i++) {
+    for (let i = 0; i < data.length / itemsPerPage; i++) {
         buttonLabels.push(i + 1);
     }
     function changePage(e) {
@@ -39,7 +26,7 @@ export default function TaskList() {
             setEndIndex((old) => startIndex * itemsPerPage + itemsPerPage);
         } else if (
             buttonPressed === "next" &&
-            newPage < taskArray.length / itemsPerPage - 1
+            newPage < data.length / itemsPerPage - 1
         ) {
             //next page if there still is one
             newPage = page + 1;
@@ -49,8 +36,8 @@ export default function TaskList() {
         } else {
             return;
         }
-        console.log(page);
-        for (let i = 0; i < taskArray.length; i++) {
+        // console.log(page);
+        for (let i = 0; i < data.length; i++) {
             let row = document.getElementById(`${i}`); //a row of the table
             row?.classList.toggle("hidden", i < startIndex || i >= endIndex); //set class to hidden if row is out of range
             // console.log(row?.classList);
@@ -88,7 +75,7 @@ export default function TaskList() {
                         </tr>
                     </thead>
                     <tbody>
-                        {taskArray.map((item, index) => {
+                        {data.map((item, index) => {
                             if (index <= itemsPerPage) {
                                 return (
                                     <tr id={index.toString()} key={uuidv4()}>
@@ -100,7 +87,7 @@ export default function TaskList() {
                                             className=" h-6 border border-black/25 px-2 text-center"
                                             key={uuidv4()}
                                         >
-                                            {uuidv4()}
+                                            {item.id}
                                         </td>
                                         <td
                                             className="h-6 border border-black/25 px-2 text-center"
@@ -113,7 +100,10 @@ export default function TaskList() {
                                             key={uuidv4()}
                                             title={item.content}
                                         >
-                                            {item.content.slice(0, 50) + "..."}
+                                            {item.content.length >= 50
+                                                ? item.content.slice(0, 50) +
+                                                  "..."
+                                                : item.content}
                                         </td>
                                         <td
                                             key={uuidv4()}
@@ -124,7 +114,7 @@ export default function TaskList() {
                                                 dateTime={item.startDate}
                                             >
                                                 {item.startDate
-                                                    .toISOString()
+                                                    .toString()
                                                     .slice(0, 10)}
                                             </time>
                                         </td>
@@ -134,12 +124,10 @@ export default function TaskList() {
                                         >
                                             <time
                                                 key={uuidv4()}
-                                                dateTime={item.endDate.setDate(
-                                                    index
-                                                )}
+                                                dateTime={item.endDate}
                                             >
                                                 {item.endDate
-                                                    .toISOString()
+                                                    .toString()
                                                     .slice(0, 10)}
                                             </time>
                                         </td>
@@ -153,9 +141,7 @@ export default function TaskList() {
                                             className=" h-6 border border-black/25 px-2"
                                             key={uuidv4()}
                                         >
-                                            {item.tags.map(
-                                                (i) => i.toString() + "  "
-                                            )}
+                                            {item.tags}
                                         </td>
                                     </tr>
                                 );
@@ -191,6 +177,7 @@ export default function TaskList() {
                                             key={uuidv4()}
                                             dateTime={item.startDate}
                                         />
+                                        {item.startDate.toString().slice(0, 10)}
                                     </td>
                                     <td
                                         key={uuidv4()}
@@ -201,7 +188,7 @@ export default function TaskList() {
                                             dateTime={item.endDate}
                                         >
                                             {item.endDate
-                                                .toISOString()
+                                                .toString()
                                                 .slice(0, 10)}
                                         </time>
                                     </td>
@@ -215,9 +202,7 @@ export default function TaskList() {
                                         className="hidden h-6 border border-black/25 px-2"
                                         key={uuidv4()}
                                     >
-                                        {item.tags.map(
-                                            (i) => i.toString() + "  "
-                                        )}
+                                        {item.tags}
                                     </td>
                                 </tr>
                             );

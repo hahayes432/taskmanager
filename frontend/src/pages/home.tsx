@@ -1,21 +1,36 @@
 import Box from "../components/box";
 import { taskItem } from "../services/types.js";
 import TaskElementConstructor from "../components/taskElement.js";
+import { useState, useEffect } from "react";
+import GetTaskApiCall from "../services/taskApiCalls.js";
 
 export default function Home() {
     const task: taskItem = {
         id: 1,
-        name: "Buy milk",
-        content:
-            "Go to store and buy milk. jklsdfdhlasd faklfhjklasdj faklösjfklö sdlaskDalsk sLKD LJK HSD FKAJHSFD KLJASFLJ Kkl jsklsöjklsdfjsklöadfj aslkdf jlkjadklöf",
+        name: "loading",
+        content: "loading",
         startDate: new Date(),
         endDate: new Date(),
         tags: [2, 3, 4],
         status: 2,
         activityId: 3,
     };
+    const [apiTasks, setApiTasks] = useState<taskItem[]>([task]);
+    const elementType = "task";
+    const getApiTasks = async () => {
+        try {
+            const res = await GetTaskApiCall(3);
+            setApiTasks((e) => res);
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
-    const aaa: taskItem[] = [...Array(3)].fill(task);
+    useEffect(() => {
+        getApiTasks();
+    }, []);
+
+    // const aaa: taskItem[] = [...Array(3)].fill(task);
 
     return (
         <>
@@ -24,22 +39,14 @@ export default function Home() {
             </div>
             {/* Edit this div to adjust size of task boxes */}
             <div className="flex flex-col w-3/4">
-                {aaa.map((item, index) => {
+                {apiTasks.map((item, index) => {
                     return (
                         <div className="min-h-fit max-w-fit" key={index}>
-                            <Box>
-                                <TaskElementConstructor data={item} />
-                            </Box>
-                        </div>
-                    );
-                })}
-            </div>
-            {/* Edit this div to adjust size of task boxes */}
-            <div className="flex flex-col w-3/4">
-                {aaa.map((item, index) => {
-                    return (
-                        <div className="min-h-fit max-w-fit" key={index}>
-                            <Box>
+                            <Box
+                                setApiTasks={setApiTasks}
+                                elementtype={elementType}
+                                item={item.id}
+                            >
                                 <TaskElementConstructor data={item} />
                             </Box>
                         </div>

@@ -3,7 +3,8 @@
 Vau
 
 # Tietokanan luonti
-backend\databeissi.sql pitää ajaa postgresql-tietokannassa
+backend\CreateDatabase.sql pitää ajaa postgresql-tietokannassa
+
 
 # Backend ajo terminaalissa
 projektin root kansiosta seuraavat komennot
