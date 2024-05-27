@@ -8,7 +8,7 @@ export default function TaskList({ data }: { data: taskItem[] }) {
     const [startIndex, setStartIndex] = useState<number>(0);
     const [endIndex, setEndIndex] = useState<number>(8);
 
-    console.log(data);
+    // console.log(data);
     const itemsPerPage = 6;
     const buttonLabels: number[] = [];
     for (let i = 0; i < data.length / itemsPerPage; i++) {
@@ -36,7 +36,7 @@ export default function TaskList({ data }: { data: taskItem[] }) {
         } else {
             return;
         }
-        console.log(page);
+        // console.log(page);
         for (let i = 0; i < data.length; i++) {
             let row = document.getElementById(`${i}`); //a row of the table
             row?.classList.toggle("hidden", i < startIndex || i >= endIndex); //set class to hidden if row is out of range
@@ -76,7 +76,6 @@ export default function TaskList({ data }: { data: taskItem[] }) {
                     </thead>
                     <tbody>
                         {data.map((item, index) => {
-                            console.log(item);
                             if (index <= itemsPerPage) {
                                 return (
                                     <tr id={index.toString()} key={uuidv4()}>

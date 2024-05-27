@@ -26,13 +26,13 @@ export default function Task() {
             const response = await GetTaskApiCall();
             const data = await response;
             setApiData((e) => data);
-            console.log(data.data);
+            // console.log(data.data);
         } catch (error) {
             console.log(error);
         }
     };
 
-    console.log(apiData);
+    // console.log(apiData);
     return (
         <>
             <div className="flex flex-col w-full h-full">
