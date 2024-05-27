@@ -1,19 +1,16 @@
-import { useState, useEffect } from "react";
+// import { useState, useEffect } from "react";
 import axios from "axios";
+import { taskItem } from "./types";
 
-export default function TaskApiCall() {
-    const [taskData, setTaskData] = useState(null);
-
-    useEffect(() => {
-        axios
-            .get("https://localhost:7296/")
-            .then((response) => {
-                setTaskData(response.data);
-            })
-            .catch((error) => {
-                console.error("Fetch failed: ", error);
-            });
-    }, []);
-
-    return taskData;
+export default async function GetTaskApiCall() {
+    const response = await axios.get<taskItem>(
+        "https://localhost:7296/TaskManager/GetTasks"
+    );
+    if (!response.data) {
+        console.error("There was an error fetching the data");
+    }
+    // console.log(response.data);
+    return response.data;
 }
+
+//task insert needed
