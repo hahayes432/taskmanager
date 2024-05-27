@@ -23,7 +23,7 @@ export default function Task() {
 
     const getApiData = async () => {
         try {
-            const response = await GetTaskApiCall();
+            const response = await GetTaskApiCall(undefined);
             const data = await response;
             setApiData((e) => data);
             // console.log(data.data);

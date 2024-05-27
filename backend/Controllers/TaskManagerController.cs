@@ -78,6 +78,38 @@ namespace backend
             return taskList;
         }
 
+         [HttpGet("GetTasksFrontpage")]
+        public List<Tasks> GetTasksFrontpage(int amount)
+        {
+            conn.Open();
+            // Get closest to end date from database that exist
+            var cmd = new NpgsqlCommand("SELECT * FROM \"Task\" ORDER BY \"EndDate\" ASC LIMIT ($1)", conn)
+            {
+                Parameters = 
+                {
+                    new() {Value = amount},
+                }
+            };
+
+            NpgsqlDataReader reader = cmd.ExecuteReader();
+
+            List<Tasks> taskList = new List<Tasks>();
+            while (reader.Read())
+            {
+                Tasks taskRow = new Tasks();
+                taskRow.Id = reader.GetInt32(0);
+                taskRow.Name = reader.GetString(1);
+                taskRow.Content = reader.GetString(2);
+                taskRow.StartDate = reader.GetDateTime(3);
+                taskRow.EndDate = reader.GetDateTime(4);
+                taskRow.ActivityId = reader.GetInt32(5);
+                taskRow.Status = reader.GetInt32(6);
+                taskRow.Tags = reader.GetInt32(7);
+                taskList.Add(taskRow);
+            }
+            return taskList;
+        }
+
         [HttpDelete("DeleteTask")]
         public IActionResult DeleteTask(int id)
         {

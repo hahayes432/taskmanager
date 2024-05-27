@@ -19,7 +19,7 @@ export default function Home() {
     const elementType = "task";
     const getApiTasks = async () => {
         try {
-            const res = await GetTaskApiCall();
+            const res = await GetTaskApiCall(3);
             setApiTasks((e) => res);
         } catch (error) {
             console.error(error);
