@@ -22,7 +22,7 @@ namespace backend
         }
 
         [HttpPost("InsertTask")]
-        public IActionResult InsertTask(string name, string content)
+        public IActionResult InsertTask(string name, string content, string startDate, string endDate, string activityId, string status, string tags)
         {
 
             var conn = new NpgsqlConnection(connectionString);
@@ -33,11 +33,11 @@ namespace backend
     {
         new() { Value = name },
         new() { Value = content },
-        new() { Value = DateTime.Now },
-        new() { Value = DateTime.Now.AddDays(7) },
-        new() { Value = 2 },
-        new() { Value = 2 },
-        new() { Value = 2 }
+        new() { Value = startDate },
+        new() { Value = endDate },
+        new() { Value = activityId },
+        new() { Value = status },
+        new() { Value = tags }
     }
             };
 
@@ -79,7 +79,7 @@ namespace backend
         }
 
         [HttpDelete("DeleteTask")]
-        public IActionResult DeleteTask([FromQuery] int id)
+        public IActionResult DeleteTask(string id)
         {
             conn.Open();
             using var cmd = new NpgsqlCommand("DELETE FROM \"Task\" WHERE \"Id\" = ($1);", conn)
@@ -103,7 +103,7 @@ namespace backend
         }
 
         [HttpPost("InsertActivity")]
-        public IActionResult InsertActivity([FromQuery] string title, [FromQuery] string description, [FromQuery] string url)
+        public IActionResult InsertActivity(string title, string description, string url, string startDate, string endDate, string status, string tags, string activityType)
         {
             conn.Open();
             var cmd = new NpgsqlCommand("INSERT INTO \"Activity\" (\"Title\", \"Description\", \"Url\", \"StartDate\", \"EndDate\", \"Status\", \"Tags\", \"ActivityType\") VALUES (($1), ($2), ($3), ($4), ($5), ($6), ($7), ($8));", conn)
@@ -113,11 +113,11 @@ namespace backend
         new() { Value = title },
         new() { Value = description },
         new() { Value = url },
-        new() { Value = DateTime.Now },
-        new() { Value = DateTime.Now.AddDays(7) },
-        new() { Value = 1 },
-        new() { Value = 1 },
-        new() { Value = 1 }
+        new() { Value = startDate },
+        new() { Value = endDate },
+        new() { Value = status },
+        new() { Value = tags },
+        new() { Value = activityType }
     }
             };
             if (cmd.ExecuteNonQuery() > 0)
@@ -159,7 +159,7 @@ namespace backend
         }
 
         [HttpDelete("DeleteActivity")]
-        public IActionResult DeleteActivity([FromQuery] int id)
+        public IActionResult DeleteActivity(string id)
         {
             conn.Open();
             using var cmd = new NpgsqlCommand("DELETE FROM \"Activity\" WHERE \"Id\" = ($1);", conn)
@@ -228,7 +228,7 @@ namespace backend
         }
 
         [HttpDelete("DeleteTag")]
-        public IActionResult DeleteTag([FromQuery] int id)
+        public IActionResult DeleteTag(string id)
         {
             conn.Open();
             using var cmd = new NpgsqlCommand("DELETE FROM \"Tag\" WHERE \"Id\" = ($1);", conn)
@@ -252,7 +252,7 @@ namespace backend
         }
 
         [HttpPost("InsertStatus")]
-        public IActionResult InsertStatus([FromQuery] string title, [FromQuery] string style)
+        public IActionResult InsertStatus(string title, string style)
         {
             conn.Open();
             var cmd = new NpgsqlCommand("INSERT INTO \"Status\" (\"Title\", \"Style\") VALUES (($1), ($2));", conn)
@@ -297,7 +297,7 @@ namespace backend
         }
 
         [HttpDelete("DeleteStatus")]
-        public IActionResult DeleteStatus([FromQuery] int id)
+        public IActionResult DeleteStatus(string id)
         {
             conn.Open();
             using var cmd = new NpgsqlCommand("DELETE FROM \"Status\" WHERE \"Id\" = ($1);", conn)
@@ -321,7 +321,7 @@ namespace backend
         }
 
         [HttpPost("InsertActivityType")]
-        public IActionResult InsertActivityType([FromQuery] string name)
+        public IActionResult InsertActivityType(string name)
         {
             conn.Open();
             var cmd = new NpgsqlCommand("INSERT INTO \"ActivityType\" (\"Name\") VALUES (($1));", conn)
@@ -363,7 +363,7 @@ namespace backend
         }
 
         [HttpDelete("DeleteActivityType")]
-        public IActionResult DeleteActivityType([FromQuery] int id)
+        public IActionResult DeleteActivityType(string id)
         {
             conn.Open();
             using var cmd = new NpgsqlCommand("DELETE FROM \"ActivityType\" WHERE \"Id\" = ($1);", conn)
