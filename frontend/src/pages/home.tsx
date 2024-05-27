@@ -16,7 +16,7 @@ export default function Home() {
         activityId: 3,
     };
     const [apiTasks, setApiTasks] = useState<taskItem[]>([task]);
-
+    const elementType = "task";
     const getApiTasks = async () => {
         try {
             const res = await GetTaskApiCall();
@@ -42,7 +42,11 @@ export default function Home() {
                 {apiTasks.map((item, index) => {
                     return (
                         <div className="min-h-fit max-w-fit" key={index}>
-                            <Box>
+                            <Box
+                                setApiTasks={setApiTasks}
+                                elementtype={elementType}
+                                item={item.id}
+                            >
                                 <TaskElementConstructor data={item} />
                             </Box>
                         </div>

@@ -13,4 +13,11 @@ export default async function GetTaskApiCall() {
     return response.data;
 }
 
+export async function DeleteTaskApiCall(id) {
+    const response = await axios.delete(
+        `https://localhost:7296/TaskManager/DeleteTask?id=${id}`
+    );
+    console.log(response);
+}
+
 //task insert needed
