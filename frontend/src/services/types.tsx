@@ -4,7 +4,7 @@ export interface taskItem {
     content: string;
     startDate: Date;
     endDate: Date;
-    tags: number[];
+    tags: number;
     status: number;
     activityId: number;
 }
@@ -15,7 +15,7 @@ export interface activityItem {
     url: string;
     startDate: Date;
     endDate: Date;
-    tags: number[];
+    tags: number;
     status: number;
     activityType: number;
 }

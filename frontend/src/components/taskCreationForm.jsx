@@ -1,21 +1,12 @@
 import React from "react";
-import { useState, useRef } from "react";
+import { useRef } from "react";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
-import {CreateTaskApiCall} from "../services/taskApiCalls";
 import "./component.css";
 
-export default function CreateTaskForm({getApiData}) {
+export default function CreateTaskForm({handleSubmit, taskInfo, setTaskInfo}) {
     const ref = useRef()
-    const [taskInfo, setTaskInfo] = useState({
-        name: "",
-        content: "",
-        startDate: new Date(),
-        endDate: new Date(),
-        tags: "",
-        status: Number,
-        activityId: Number,
-    });
+
 
     const statusOptions = [
         { id: 1, text: "New" },
@@ -31,20 +22,13 @@ export default function CreateTaskForm({getApiData}) {
         });
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // console.log(taskInfo);
-        CreateTaskApiCall(taskInfo);
-        console.log(ref.current)
-        ref.current.close()
-        getApiData();
-    };
+
 
     return (
-        <div className="mr-auto">
+        <div className="w-3/4 mx-auto">
             <Popup
                 trigger={
-                    <button className="border border-black/25 px-1 bg-gradient-to-tr w-fit h-fit ml-auto">
+                    <button className="border border-black/25 px-1 w-fit h-fit ml-auto rounded-md bg-blue-300">
                         Create task
                     </button>
                 }
@@ -58,7 +42,11 @@ export default function CreateTaskForm({getApiData}) {
                             <div className="Modal-header">Weclom E jeps</div>
 
                             <div className="Modal-body">
-                                <form onSubmit={handleSubmit}>
+                                <form onSubmit={(e) => {
+                                    e.preventDefault()
+                                    handleSubmit()
+                                    ref.current.close()
+                                    }}>
                                     <div className="form-group">
                                         <label htmlFor="name"></label>
                                         <input

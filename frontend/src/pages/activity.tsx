@@ -12,7 +12,7 @@ export default function ActivityPage() {
         url: "Loading",
         startDate: new Date(Date.now()),
         endDate: new Date(Date.now()),
-        tags: [1],
+        tags: 1,
         status: 1,
         activityType: 1,
     };
