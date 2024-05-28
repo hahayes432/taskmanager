@@ -11,7 +11,7 @@ export default function Home() {
         content: "loading",
         startDate: new Date(),
         endDate: new Date(),
-        tags: [2, 3, 4],
+        tags: 2,
         status: 2,
         activityId: 3,
     };

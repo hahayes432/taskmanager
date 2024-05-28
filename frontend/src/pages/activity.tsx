@@ -70,7 +70,10 @@ export default function ActivityPage() {
                     </h3>
                 </div>
             </div>
-            <ActivityList activityArray={apiActivityData} />
+            <ActivityList
+                setApiActivityData={setApiActivityData}
+                activityArray={apiActivityData}
+            />
             <ActivityCreationForm
                 activityInfo={activityInfo}
                 setActivityInfo={setActivityInfo}

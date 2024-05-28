@@ -1,11 +1,18 @@
+import { useCallback, useState } from "react";
 import { activityItem } from "../services/types";
 import DataTable from "react-data-table-component";
+import { DeleteActivityApiCall } from "../services/activityApiCalls";
 
 export default function ActivityList({
     activityArray,
+    setApiActivityData,
 }: {
     activityArray: activityItem[];
+    setApiActivityData: VoidFunction;
 }) {
+    const [selectedRow, setSelectedRow] = useState({});
+    const [toggleClearRow, setToggleClearRow] = useState({});
+
     const rows: activityItem[] = [];
     activityArray.forEach((item) => {
         rows.push({
@@ -35,6 +42,15 @@ export default function ActivityList({
             </div>
         );
     };
+
+    function handleDelete() {
+        console.log(selectedRow[0].id);
+        DeleteActivityApiCall(selectedRow[0].id);
+        setApiActivityData((e) => {
+            const filtered = e.filter((item) => item.id !== selectedRow[0].id);
+            return filtered;
+        });
+    }
 
     const columns = [
         {
@@ -98,6 +114,9 @@ export default function ActivityList({
                     pagination
                     selectableRows
                     selectableRowsSingle
+                    onSelectedRowsChange={(e) => {
+                        setSelectedRow(() => e.selectedRows);
+                    }}
                     expandableRows
                     expandOnRowClicked
                     expandableRowsHideExpander
@@ -105,6 +124,7 @@ export default function ActivityList({
                     paginationPerPage={6}
                     paginationComponentOptions={paginationOptions}
                 />
+                <button onClick={handleDelete}>Delete Selected</button>
             </div>
         </>
     );

@@ -16,7 +16,7 @@ export default function Box({
         if (elementtype === "task") {
             DeleteTaskApiCall(item);
             const getNewTaskData = async () => {
-                const res = await GetTaskApiCall(undefined);
+                const res = await GetTaskApiCall(3);
                 setApiTasks((old) => res);
             };
             getNewTaskData();

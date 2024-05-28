@@ -21,4 +21,12 @@ export async function CreateActivityApiCall(activityInfo: activityItem) {
     }
 }
 
+export async function DeleteActivityApiCall(id: number) {
+    const response = await axios.delete(
+        `https://localhost:7296/TaskManager/DeleteActivity?id=${id}`
+    );
+    if (response.status !== 200) {
+        console.error(response.statusText);
+    }
+}
 //activity insert needed
