@@ -13,12 +13,8 @@ export default function Box({
     item: number;
     setApiTasks: VoidFunction;
 }) {
-    console.log(elementtype);
     function handleClick() {
-        console.log(item);
-
         if (elementtype === "task") {
-            console.log("Im gooning");
             DeleteTaskApiCall(item);
             const getNewTaskData = async () => {
                 const res = await GetTaskApiCall();

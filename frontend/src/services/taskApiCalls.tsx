@@ -29,4 +29,9 @@ export async function DeleteTaskApiCall(id) {
     console.log(response);
 }
 
+export async function CreateTaskApiCall(taskObj: taskItem) {
+    const response = await axios.post(
+        `https://localhost:7296/TaskManager/InsertTask?name=${taskObj.name}&content=${taskObj.content}&startDate=${taskObj.startDate}&endDate=${taskObj.endDate}&activityId=${taskObj.activityId}&status=${taskObj.status}&tags=${taskObj.tags}`
+    );
+}
 //task insert needed
