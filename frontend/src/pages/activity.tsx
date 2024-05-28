@@ -37,7 +37,16 @@ export default function ActivityPage() {
     return (
         <>
             <div className=" w-full h-auto">
-                <h2 className="w-fit m-auto mt-5 text-4xl">Activities</h2>
+                <div className="w-fit mx-auto mt-4 text-center">
+                    <h2 className="w-fit m-auto mt-5 text-4xl font-bold">
+                        Activities
+                    </h2>
+                    <h3 className="text-lg font-semibold">
+                        You can click the activity row's to click the activity
+                        url and to be able to see the full description if it is
+                        too long to display normally
+                    </h3>
+                </div>
             </div>
             <ActivityList activityArray={apiActivityData} />
         </>

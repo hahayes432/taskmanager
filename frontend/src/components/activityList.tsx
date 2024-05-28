@@ -17,9 +17,17 @@ export default function ActivityList({
 
     const ExpandedComponent = ({ data }) => {
         return (
-            <div>
-                <p>{data.description}</p>
-                <p>{data.url}</p>
+            <div className="py-1 flex flex-row justify-evenly">
+                <p className="pb-1">Description: {data.description}</p>
+                <p>
+                    Url:{" "}
+                    <a
+                        className="text-blue-500 hover:text-blue-700"
+                        href={data.url}
+                    >
+                        {data.url}
+                    </a>
+                </p>
             </div>
         );
     };
