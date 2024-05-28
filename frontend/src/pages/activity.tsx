@@ -8,7 +8,6 @@ import {
 import ActivityCreationForm from "../components/activityCreationForm";
 
 export default function ActivityPage() {
-    //Ilkee vittusaatana
     const [activityInfo, setActivityInfo] = useState({
         id: 1,
         title: "",
