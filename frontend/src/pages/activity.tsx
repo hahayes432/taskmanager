@@ -2,6 +2,7 @@ import ActivityList from "../components/activityList";
 import { useState, useEffect } from "react";
 import { activityItem } from "../services/types";
 import GetActivityApiCall from "../services/activityApiCalls";
+import ActivityCreationForm from "../components/activityCreationForm";
 
 export default function ActivityPage() {
     //Loading activity item while fetching actual data
@@ -20,6 +21,22 @@ export default function ActivityPage() {
     const [apiActivityData, setApiActivityData] = useState<activityItem[]>([
         tempLoadingActivityItem,
     ]);
+
+    const [activityInfo, setActivityInfo] = useState<activityItem>({
+        id: 1,
+        title: "",
+        description: "",
+        url: "",
+        startDate: new Date(),
+        endDate: new Date(),
+        tags: 1,
+        status: 1,
+        activityType: 1,
+    });
+
+    function handleSubmit(e) {
+        e.preventDefault();
+    }
 
     const getActivityData = async () => {
         try {
@@ -49,6 +66,11 @@ export default function ActivityPage() {
                 </div>
             </div>
             <ActivityList activityArray={apiActivityData} />
+            <ActivityCreationForm
+                activityInfo={activityInfo}
+                setActivityInfo={setActivityInfo}
+                handleSubmit={handleSubmit}
+            />
         </>
     );
 }
