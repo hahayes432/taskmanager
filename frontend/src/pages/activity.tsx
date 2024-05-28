@@ -42,6 +42,14 @@ export default function ActivityPage() {
     function handleSubmit() {
         // console.log(activityInfo);
         CreateActivityApiCall(activityInfo);
+        // evil way to get the list to update when the first page isnt full
+        if (apiActivityData.length < 6) {
+            setApiActivityData((old) => {
+                setActivityInfo((i) => (i.id = old[old.length - 1].id + 1));
+                return [...old].concat(activityInfo);
+            });
+        }
+        // going to keep this here since it works after the first page is full
         getActivityData();
     }
     function handleDelete() {
@@ -80,7 +88,6 @@ export default function ActivityPage() {
             </div>
             <ActivityList
                 setSelectedRow={setSelectedRow}
-                setApiActivityData={setApiActivityData}
                 activityArray={apiActivityData}
             />
             <div className="flex flex-row w-3/4 mx-auto">

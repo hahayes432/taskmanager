@@ -1,16 +1,14 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { taskItem } from "../services/types.js";
 import DataTable from "react-data-table-component";
-import { DeleteTaskApiCall } from "../services/taskApiCalls.js";
 
 export default function TaskList({
     data,
-    setData,
+    setSelected,
 }: {
     data: taskItem[];
-    setData: VoidFunction;
+    setSelected: Dispatch<SetStateAction<object>>;
 }) {
-    const [selected, setSelected] = useState({});
     const rows: taskItem[] = [];
     // doing this because table needs to display date objects as strings
     data.forEach((item) => {
@@ -75,14 +73,6 @@ export default function TaskList({
         return <div className="h-fit text-center">{data.content}</div>;
     };
 
-    const handleDelete = () => {
-        DeleteTaskApiCall(selected[0].id);
-        setData((old) => {
-            const newData = old.filter((item) => item.id !== selected[0].id);
-            return newData;
-        });
-    };
-
     return (
         <>
             <div className="w-3/4 h-min mx-auto mt-16 min-h-fit overflow-y-auto">
@@ -102,7 +92,6 @@ export default function TaskList({
                     paginationPerPage={6}
                     paginationComponentOptions={paginationOptions}
                 />
-                <button onClick={handleDelete}>Delete selected</button>
             </div>
         </>
     );

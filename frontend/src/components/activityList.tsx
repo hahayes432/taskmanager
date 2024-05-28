@@ -1,16 +1,13 @@
-import { useCallback, useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { activityItem } from "../services/types";
 import DataTable from "react-data-table-component";
-import { DeleteActivityApiCall } from "../services/activityApiCalls";
 
 export default function ActivityList({
     activityArray,
-    setApiActivityData,
     setSelectedRow,
 }: {
     activityArray: activityItem[];
-    setApiActivityData: VoidFunction;
-    setSelectedRow: VoidFunction;
+    setSelectedRow: Dispatch<SetStateAction<object>>;
 }) {
     const rows: activityItem[] = [];
     activityArray.forEach((item) => {

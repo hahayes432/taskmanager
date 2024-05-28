@@ -25,10 +25,10 @@ export default function CreateTaskForm({
     };
 
     return (
-        <div className="w-3/4 mx-auto">
+        <div>
             <Popup
                 trigger={
-                    <button className="border border-black/25 px-1 w-fit h-fit ml-auto rounded-md bg-blue-300">
+                    <button className="border border-black/25 p-1 w-fit h-fit ml-auto rounded-md bg-green-400 hover:bg-green-600">
                         Create task
                     </button>
                 }
