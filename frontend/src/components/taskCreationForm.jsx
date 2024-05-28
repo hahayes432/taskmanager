@@ -22,13 +22,6 @@ export default function CreateTaskForm() {
         { id: 3, text: "Done" },
     ];
 
-    const activityOptions = [
-        { id: 1, text: "School" },
-        { id: 2, text: "Work" },
-        { id: 3, text: "Hobby" },
-        { id: 4, text: "Chore" },
-    ];
-
     const handleChange = (e) => {
         const { name, value } = e.target;
         setTaskInfo({
