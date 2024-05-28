@@ -16,7 +16,9 @@ export default function TaskList({ data }: { data: taskItem[] }) {
             activityId: item.activityId,
         });
     });
-
+    const paginationOptions = {
+        noRowsPerPage: true,
+    };
     const columns = [
         {
             name: "id",
@@ -78,6 +80,8 @@ export default function TaskList({ data }: { data: taskItem[] }) {
                     expandableRowsComponent={Expanded}
                     expandableRowsHideExpander
                     expandOnRowClicked
+                    paginationPerPage={6}
+                    paginationComponentOptions={paginationOptions}
                 />
             </div>
         </>

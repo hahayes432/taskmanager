@@ -15,6 +15,10 @@ export default function ActivityList({
         });
     });
 
+    const paginationOptions = {
+        noRowsPerPage: true,
+    };
+
     const ExpandedComponent = ({ data }) => {
         return (
             <div className="py-1 flex flex-row justify-evenly h-fit">
@@ -98,6 +102,8 @@ export default function ActivityList({
                     expandOnRowClicked
                     expandableRowsHideExpander
                     expandableRowsComponent={ExpandedComponent}
+                    paginationPerPage={6}
+                    paginationComponentOptions={paginationOptions}
                 />
             </div>
         </>
