@@ -1,11 +1,12 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import {CreateTaskApiCall} from "../services/taskApiCalls";
 import "./component.css";
 
-export default function CreateTaskForm() {
+export default function CreateTaskForm({getApiData}) {
+    const ref = useRef()
     const [taskInfo, setTaskInfo] = useState({
         name: "",
         content: "",
@@ -34,7 +35,9 @@ export default function CreateTaskForm() {
         e.preventDefault();
         // console.log(taskInfo);
         CreateTaskApiCall(taskInfo);
-
+        console.log(ref.current)
+        ref.current.close()
+        getApiData();
     };
 
     return (
@@ -47,6 +50,7 @@ export default function CreateTaskForm() {
                 }
                 modal
                 nested
+                ref={ref}
             >
                 {(close) => (
                     <div className="flex flex-row">

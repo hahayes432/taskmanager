@@ -3,10 +3,16 @@ import { v4 as uuidv4 } from "uuid"; // fix warnings by generating unique keys i
 import CreateTaskForm from "../components/taskCreationForm.jsx";
 import { taskItem } from "../services/types.js";
 
-export default function TaskList({ data }: { data: taskItem[] }) {
+export default function TaskList({
+    data,
+    getApiData,
+}: {
+    data: taskItem[];
+    getApiData: () => Promise<void>;
+}) {
     const [page, setPage] = useState<number>(0);
     const [startIndex, setStartIndex] = useState<number>(0);
-    const [endIndex, setEndIndex] = useState<number>(8);
+    const [endIndex, setEndIndex] = useState<number>(6);
 
     // console.log(data);
     const itemsPerPage = 6;
@@ -22,8 +28,8 @@ export default function TaskList({ data }: { data: taskItem[] }) {
             // previous page unless we are already at the first one
             newPage = page - 1;
             setPage((old) => old - 1); // update states for next time
-            setStartIndex((old) => page * itemsPerPage);
-            setEndIndex((old) => startIndex * itemsPerPage + itemsPerPage);
+            setStartIndex((old) => old - itemsPerPage);
+            setEndIndex((old) => old - itemsPerPage);
         } else if (
             buttonPressed === "next" &&
             newPage < data.length / itemsPerPage - 1
@@ -31,17 +37,17 @@ export default function TaskList({ data }: { data: taskItem[] }) {
             //next page if there still is one
             newPage = page + 1;
             setPage((old) => old + 1); // update states for next time
-            setStartIndex((old) => newPage * itemsPerPage);
-            setEndIndex((old) => newPage * itemsPerPage + itemsPerPage);
+            setStartIndex((old) => old + itemsPerPage);
+            setEndIndex((old) => old + itemsPerPage);
         } else {
             return;
         }
         // console.log(page);
         for (let i = 0; i < data.length; i++) {
-            let row = document.getElementById(`${i}`); //a row of the table
-            row?.classList.toggle("hidden", i < startIndex || i >= endIndex); //set class to hidden if row is out of range
-            // console.log(row?.classList);
-            // console.log(startIndex, endIndex);
+            const row = document.getElementById(`${i}row`); //a row of the table
+            row?.classList.toggle("hidden", i < startIndex || i > endIndex); //set class to hidden if row is out of range
+            console.log(row);
+            console.log(startIndex, endIndex);
         }
     }
 
@@ -76,9 +82,12 @@ export default function TaskList({ data }: { data: taskItem[] }) {
                     </thead>
                     <tbody>
                         {data.map((item, index) => {
-                            if (index <= itemsPerPage) {
+                            if (index < itemsPerPage) {
                                 return (
-                                    <tr id={index.toString()} key={uuidv4()}>
+                                    <tr
+                                        id={index.toString() + "row"}
+                                        key={uuidv4()}
+                                    >
                                         {/* 
                                         toString because id cant be type number 
                                         possibly used to make pages
@@ -150,7 +159,10 @@ export default function TaskList({ data }: { data: taskItem[] }) {
                                 /* make first page visible in previous if statement and then make the rest hidden */
                             }
                             return (
-                                <tr id={index.toString()} key={uuidv4()}>
+                                <tr
+                                    id={index.toString() + "row"}
+                                    key={uuidv4()}
+                                >
                                     <td
                                         className="hidden h-6 border border-black/25 px-2 text-center"
                                         key={uuidv4()}
@@ -211,7 +223,7 @@ export default function TaskList({ data }: { data: taskItem[] }) {
                 </table>
             </div>
             <div className=" relative bg-yellow-400 w-3/4 mb-4 mx-auto flex flex-row row-span-6 justify-end">
-                <CreateTaskForm />
+                <CreateTaskForm getApiData={getApiData} />
                 <button
                     value="prev"
                     className=" w-1/12 border border-black/25"

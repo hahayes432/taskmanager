@@ -2,7 +2,7 @@ import Box from "../components/box";
 import { taskItem } from "../services/types.js";
 import TaskElementConstructor from "../components/taskElement.js";
 import { useState, useEffect } from "react";
-import GetTaskApiCall from "../services/taskApiCalls.js";
+import { GetTaskApiCall } from "../services/taskApiCalls.js";
 
 export default function Home() {
     const task: taskItem = {

@@ -1,5 +1,4 @@
-import { useEffect } from "react";
-import GetTaskApiCall, { DeleteTaskApiCall } from "../services/taskApiCalls";
+import { GetTaskApiCall, DeleteTaskApiCall } from "../services/taskApiCalls";
 import "./component.css";
 
 export default function Box({
@@ -17,7 +16,7 @@ export default function Box({
         if (elementtype === "task") {
             DeleteTaskApiCall(item);
             const getNewTaskData = async () => {
-                const res = await GetTaskApiCall();
+                const res = await GetTaskApiCall(undefined);
                 setApiTasks((old) => res);
             };
             getNewTaskData();

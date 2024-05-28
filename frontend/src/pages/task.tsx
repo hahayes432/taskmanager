@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import TaskList from "../components/tasklist";
-import GetTaskApiCall from "../services/taskApiCalls";
+import { GetTaskApiCall } from "../services/taskApiCalls";
 import { taskItem } from "../services/types";
 
 export default function Task() {
@@ -39,7 +39,7 @@ export default function Task() {
                 <div className="w-fit mx-auto mt-4">
                     <h2 className="text-2xl font-bold">Tasks Page</h2>
                 </div>
-                <TaskList data={apiData} />
+                <TaskList getApiData={getApiData} data={apiData} />
             </div>
         </>
     );
