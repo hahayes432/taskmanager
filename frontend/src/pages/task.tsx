@@ -60,7 +60,7 @@ export default function Task() {
                         row you want to expand
                     </h3>
                 </div>
-                <TaskList data={apiData} />
+                <TaskList setData={setApiData} data={apiData} />
                 <CreateTaskForm
                     taskInfo={taskInfo}
                     setTaskInfo={setTaskInfo}

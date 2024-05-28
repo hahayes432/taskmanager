@@ -1,7 +1,16 @@
+import { useState } from "react";
 import { taskItem } from "../services/types.js";
 import DataTable from "react-data-table-component";
+import { DeleteTaskApiCall } from "../services/taskApiCalls.js";
 
-export default function TaskList({ data }: { data: taskItem[] }) {
+export default function TaskList({
+    data,
+    setData,
+}: {
+    data: taskItem[];
+    setData: VoidFunction;
+}) {
+    const [selected, setSelected] = useState({});
     const rows: taskItem[] = [];
     // doing this because table needs to display date objects as strings
     data.forEach((item) => {
@@ -66,16 +75,26 @@ export default function TaskList({ data }: { data: taskItem[] }) {
         return <div className="h-fit text-center">{data.content}</div>;
     };
 
+    const handleDelete = () => {
+        DeleteTaskApiCall(selected[0].id);
+        setData((old) => {
+            const newData = old.filter((item) => item.id !== selected[0].id);
+            return newData;
+        });
+    };
+
     return (
         <>
-            <div className="w-3/4 h-min mx-auto mt-16 min-h-fit overflow-y-auto what">
+            <div className="w-3/4 h-min mx-auto mt-16 min-h-fit overflow-y-auto">
                 <DataTable
-                    className="what"
                     columns={columns}
                     data={rows}
                     pagination
                     selectableRows
                     selectableRowsSingle
+                    onSelectedRowsChange={(e) => {
+                        setSelected(() => e.selectedRows);
+                    }}
                     expandableRows
                     expandableRowsComponent={Expanded}
                     expandableRowsHideExpander
@@ -83,6 +102,7 @@ export default function TaskList({ data }: { data: taskItem[] }) {
                     paginationPerPage={6}
                     paginationComponentOptions={paginationOptions}
                 />
+                <button onClick={handleDelete}>Delete selected</button>
             </div>
         </>
     );

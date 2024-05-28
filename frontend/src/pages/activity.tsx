@@ -4,6 +4,7 @@ import { activityItem } from "../services/types";
 import {
     GetActivityApiCall,
     CreateActivityApiCall,
+    DeleteActivityApiCall,
 } from "../services/activityApiCalls";
 import ActivityCreationForm from "../components/activityCreationForm";
 
@@ -19,7 +20,8 @@ export default function ActivityPage() {
         status: Number,
         activityType: Number,
     });
-
+    //selected row for delete function
+    const [selectedRow, setSelectedRow] = useState({});
     //Loading activity item while fetching actual data
     const tempLoadingActivityItem: activityItem = {
         id: 1,
@@ -42,7 +44,13 @@ export default function ActivityPage() {
         CreateActivityApiCall(activityInfo);
         getActivityData();
     }
-
+    function handleDelete() {
+        DeleteActivityApiCall(selectedRow[0].id);
+        setApiActivityData((e) => {
+            const filtered = e.filter((item) => item.id !== selectedRow[0].id);
+            return filtered;
+        });
+    }
     const getActivityData = async () => {
         try {
             const response = await GetActivityApiCall();
@@ -71,14 +79,23 @@ export default function ActivityPage() {
                 </div>
             </div>
             <ActivityList
+                setSelectedRow={setSelectedRow}
                 setApiActivityData={setApiActivityData}
                 activityArray={apiActivityData}
             />
-            <ActivityCreationForm
-                activityInfo={activityInfo}
-                setActivityInfo={setActivityInfo}
-                handleSubmit={handleSubmit}
-            />
+            <div className="flex flex-row w-3/4 mx-auto">
+                <ActivityCreationForm
+                    activityInfo={activityInfo}
+                    setActivityInfo={setActivityInfo}
+                    handleSubmit={handleSubmit}
+                />
+                <button
+                    className="p-1 border border-black/25 rounded-md bg-red-400 hover:bg-red-500 w-fit h-fit"
+                    onClick={handleDelete}
+                >
+                    Delete Selected
+                </button>
+            </div>
         </>
     );
 }

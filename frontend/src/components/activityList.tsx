@@ -6,13 +6,12 @@ import { DeleteActivityApiCall } from "../services/activityApiCalls";
 export default function ActivityList({
     activityArray,
     setApiActivityData,
+    setSelectedRow,
 }: {
     activityArray: activityItem[];
     setApiActivityData: VoidFunction;
+    setSelectedRow: VoidFunction;
 }) {
-    const [selectedRow, setSelectedRow] = useState({});
-    const [toggleClearRow, setToggleClearRow] = useState({});
-
     const rows: activityItem[] = [];
     activityArray.forEach((item) => {
         rows.push({
@@ -42,15 +41,6 @@ export default function ActivityList({
             </div>
         );
     };
-
-    function handleDelete() {
-        console.log(selectedRow[0].id);
-        DeleteActivityApiCall(selectedRow[0].id);
-        setApiActivityData((e) => {
-            const filtered = e.filter((item) => item.id !== selectedRow[0].id);
-            return filtered;
-        });
-    }
 
     const columns = [
         {
@@ -107,7 +97,7 @@ export default function ActivityList({
 
     return (
         <>
-            <div className="mt-10 w-3/4 h-3/4 m-auto what2">
+            <div className="mt-10 w-3/4 h-3/4 m-auto">
                 <DataTable
                     columns={columns}
                     data={rows}
@@ -124,7 +114,6 @@ export default function ActivityList({
                     paginationPerPage={6}
                     paginationComponentOptions={paginationOptions}
                 />
-                <button onClick={handleDelete}>Delete Selected</button>
             </div>
         </>
     );
