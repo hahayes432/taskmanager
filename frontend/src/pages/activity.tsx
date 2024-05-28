@@ -24,8 +24,7 @@ export default function ActivityPage() {
     const getActivityData = async () => {
         try {
             const response = await GetActivityApiCall();
-            const data = await response;
-            setApiActivityData((e) => data);
+            setApiActivityData((e) => response);
         } catch (error) {
             console.error(error);
         }

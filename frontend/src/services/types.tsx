@@ -2,8 +2,8 @@ export interface taskItem {
     id: number;
     name: string;
     content: string;
-    startDate: Date;
-    endDate: Date;
+    startDate: Date | string;
+    endDate: Date | string;
     tags: number;
     status: number;
     activityId: number;
@@ -13,8 +13,8 @@ export interface activityItem {
     title: string;
     description: string;
     url: string;
-    startDate: Date;
-    endDate: Date;
+    startDate: Date | string;
+    endDate: Date | string;
     tags: number;
     status: number;
     activityType: number;
