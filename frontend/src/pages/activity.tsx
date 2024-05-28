@@ -1,10 +1,26 @@
 import ActivityList from "../components/activityList";
 import { useState, useEffect } from "react";
 import { activityItem } from "../services/types";
-import GetActivityApiCall from "../services/activityApiCalls";
+import {
+    GetActivityApiCall,
+    CreateActivityApiCall,
+} from "../services/activityApiCalls";
 import ActivityCreationForm from "../components/activityCreationForm";
 
 export default function ActivityPage() {
+    //Ilkee vittusaatana
+    const [activityInfo, setActivityInfo] = useState({
+        id: 1,
+        title: "",
+        description: "",
+        url: "",
+        startDate: new Date(),
+        endDate: new Date(),
+        tags: 1,
+        status: Number,
+        activityType: Number,
+    });
+
     //Loading activity item while fetching actual data
     const tempLoadingActivityItem: activityItem = {
         id: 1,
@@ -22,20 +38,10 @@ export default function ActivityPage() {
         tempLoadingActivityItem,
     ]);
 
-    const [activityInfo, setActivityInfo] = useState<activityItem>({
-        id: 1,
-        title: "",
-        description: "",
-        url: "",
-        startDate: new Date(),
-        endDate: new Date(),
-        tags: 1,
-        status: 1,
-        activityType: 1,
-    });
-
-    function handleSubmit(e) {
-        e.preventDefault();
+    function handleSubmit() {
+        // console.log(activityInfo);
+        CreateActivityApiCall(activityInfo);
+        getActivityData();
     }
 
     const getActivityData = async () => {

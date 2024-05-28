@@ -1,10 +1,12 @@
 import { useRef } from "react";
 import Popup from "reactjs-popup";
+import "reactjs-popup/dist/index.css";
+import "./component.css";
 
-export default function ActivityCreationForm({
+export default function CreateTaskForm({
     handleSubmit,
-    activityInfo,
-    setActivityInfo,
+    taskInfo,
+    setTaskInfo,
 }) {
     const ref = useRef();
 
@@ -13,16 +15,11 @@ export default function ActivityCreationForm({
         { id: 2, text: "Ongoing" },
         { id: 3, text: "Done" },
     ];
-    const activityTypeOptions = [
-        { id: 1, text: "School" },
-        { id: 2, text: "Work" },
-        { id: 3, text: "Hobby" },
-        { id: 4, text: "Chore" },
-    ];
+
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setActivityInfo({
-            ...activityInfo,
+        setTaskInfo({
+            ...taskInfo,
             [name]: value,
         });
     };
@@ -41,48 +38,33 @@ export default function ActivityCreationForm({
             >
                 <div className="flex flex-row">
                     <div className="creationForm min-w-max">
-                        <div className="Modal-header">
-                            Create a new activity
-                        </div>
-
+                        <div className="Modal-header">Create a new task</div>
                         <div className="Modal-body">
                             <form
                                 onSubmit={(e) => {
                                     e.preventDefault();
                                     handleSubmit();
-                                    e.currentTarget.reset();
                                     ref.current.close();
                                 }}
                             >
                                 <div className="form-group">
-                                    <label htmlFor="title"></label>
+                                    <label htmlFor="name"></label>
                                     <input
                                         type="text"
-                                        name="title"
+                                        name="name"
                                         placeholder="Buy bread"
-                                        value={activityInfo.title}
+                                        value={taskInfo.name}
                                         onChange={handleChange}
                                         required
                                     />
                                 </div>
                                 <div className="form-group">
-                                    <label htmlFor="description"></label>
+                                    <label htmlFor="content"></label>
                                     <input
                                         type="text"
-                                        name="description"
+                                        name="content"
                                         placeholder="Description"
-                                        value={activityInfo.description}
-                                        onChange={handleChange}
-                                        required
-                                    />
-                                </div>
-                                <div className="form-group">
-                                    <label htmlFor="url"></label>
-                                    <input
-                                        type="text"
-                                        name="url"
-                                        placeholder="Url"
-                                        value={activityInfo.url}
+                                        value={taskInfo.content}
                                         onChange={handleChange}
                                         required
                                     />
@@ -93,7 +75,7 @@ export default function ActivityCreationForm({
                                         type="date"
                                         name="startDate"
                                         placeholder=""
-                                        value={activityInfo.startDate}
+                                        value={taskInfo.startDate}
                                         onChange={handleChange}
                                         required
                                     />
@@ -104,7 +86,7 @@ export default function ActivityCreationForm({
                                         type="date"
                                         name="endDate"
                                         placeholder=""
-                                        value={activityInfo.endDate}
+                                        value={taskInfo.endDate}
                                         onChange={handleChange}
                                         required
                                     />
@@ -115,7 +97,7 @@ export default function ActivityCreationForm({
                                         type="text"
                                         name="tags"
                                         placeholder="Enter tags"
-                                        value={activityInfo.tags}
+                                        value={taskInfo.tags}
                                         onChange={handleChange}
                                         required
                                     />
@@ -141,24 +123,15 @@ export default function ActivityCreationForm({
                                     </select>
                                 </div>
                                 <div className="form-group">
-                                    <label htmlFor="status"></label>
-                                    <select
+                                    <label htmlFor="activityId"></label>
+                                    <input
+                                        type="text"
+                                        name="activityId"
+                                        placeholder="activityId"
+                                        value={taskInfo.activityId}
                                         onChange={handleChange}
                                         required
-                                        name="activityType"
-                                    >
-                                        <option>Activity Type</option>
-                                        {activityTypeOptions.map((option) => {
-                                            return (
-                                                <option
-                                                    key={option.id}
-                                                    value={option.id}
-                                                >
-                                                    {option.text}
-                                                </option>
-                                            );
-                                        })}
-                                    </select>
+                                    />
                                 </div>
                                 <button type="submit">Save</button>
                             </form>

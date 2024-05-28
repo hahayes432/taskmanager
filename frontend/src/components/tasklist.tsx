@@ -61,7 +61,7 @@ export default function TaskList({ data }: { data: taskItem[] }) {
         },
     ];
     const Expanded = ({ data }) => {
-        return <div className="h-10 text-center">{data.content}</div>;
+        return <div className="h-fit text-center">{data.content}</div>;
     };
 
     return (

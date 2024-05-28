@@ -30,11 +30,11 @@ export async function DeleteTaskApiCall(id) {
 }
 
 export async function CreateTaskApiCall(taskObj: taskItem) {
-    console.log(taskObj);
+    // console.log(taskObj);
     const response = await axios.post(
         `https://localhost:7296/TaskManager/InsertTask?name=${taskObj.name}&content=${taskObj.content}&startDate=${taskObj.startDate}&endDate=${taskObj.endDate}&activityId=${taskObj.activityId}&status=${taskObj.status}&tags=${taskObj.tags}`
     );
-    if (response.status != 200) {
+    if (response.status !== 200) {
         console.log(response.statusText);
     }
 }
