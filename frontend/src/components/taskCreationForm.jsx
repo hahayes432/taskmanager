@@ -2,18 +2,18 @@ import React from "react";
 import { useState } from "react";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
-import CreateTaskApiCall from "../services/taskApiCalls";
+import {CreateTaskApiCall} from "../services/taskApiCalls";
 import "./component.css";
 
 export default function CreateTaskForm() {
     const [taskInfo, setTaskInfo] = useState({
         name: "",
-        description: "",
+        content: "",
         startDate: new Date(),
         endDate: new Date(),
         tags: "",
         status: Number,
-        relatedActivity: Number,
+        activityId: Number,
     });
 
     const statusOptions = [
@@ -39,8 +39,9 @@ export default function CreateTaskForm() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(taskInfo);
-        // CreateTaskApiCall(taskInfo)
+        // console.log(taskInfo);
+        CreateTaskApiCall(taskInfo);
+
     };
 
     return (
@@ -73,12 +74,23 @@ export default function CreateTaskForm() {
                                         />
                                     </div>
                                     <div className="form-group">
-                                        <label htmlFor="description"></label>
+                                        <label htmlFor="content"></label>
                                         <input
                                             type="text"
-                                            name="description"
+                                            name="content"
                                             placeholder="Description"
-                                            value={taskInfo.description}
+                                            value={taskInfo.content}
+                                            onChange={handleChange}
+                                            required
+                                        />
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="startDate"></label>
+                                        <input
+                                            type="date"
+                                            name="startDate"
+                                            placeholder=""
+                                            value={taskInfo.startDate}
                                             onChange={handleChange}
                                             required
                                         />
@@ -126,24 +138,15 @@ export default function CreateTaskForm() {
                                         </select>
                                     </div>
                                     <div className="form-group">
-                                        <label htmlFor="relatedActivity"></label>
-                                        <select
+                                        <label htmlFor="activityId"></label>
+                                        <input
+                                            type="text"
+                                            name="activityId"
+                                            placeholder="activityId"
+                                            value={taskInfo.activityId}
                                             onChange={handleChange}
                                             required
-                                            name="relatedActivity"
-                                        >
-                                            <option>Activity</option>
-                                            {activityOptions.map((option) => {
-                                                return (
-                                                    <option
-                                                        key={option.id}
-                                                        value={option.id}
-                                                    >
-                                                        {option.text}
-                                                    </option>
-                                                );
-                                            })}
-                                        </select>
+                                        />
                                     </div>
                                     <button type="submit">Save</button>
                                 </form>
