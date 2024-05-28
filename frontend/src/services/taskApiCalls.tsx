@@ -2,7 +2,7 @@
 import axios from "axios";
 import { taskItem } from "./types";
 
-export default async function GetTaskApiCall(amount: number | undefined) {
+export async function GetTaskApiCall(amount: number | undefined) {
     if (amount === undefined) {
         const response = await axios.get<taskItem>(
             "https://localhost:7296/TaskManager/GetTasks"
@@ -30,8 +30,9 @@ export async function DeleteTaskApiCall(id) {
 }
 
 export async function CreateTaskApiCall(taskObj: taskItem) {
-    const response = await axios.post(
-        `https://localhost:7296/TaskManager/InsertTask?name=${taskObj.name}&content=${taskObj.content}&startDate=${taskObj.startDate}&endDate=${taskObj.endDate}&activityId=${taskObj.activityId}&status=${taskObj.status}&tags=${taskObj.tags}`
-    );
+    console.log(taskObj);
+    // const response = await axios.post(
+    //     `https://localhost:7296/TaskManager/InsertTask?name=${taskObj.name}&content=${taskObj.content}&startDate=${taskObj.startDate}&endDate=${taskObj.endDate}&activityId=${taskObj.activityId}&status=${taskObj.status}&tags=${taskObj.tags}`
+    // );
 }
 //task insert needed
