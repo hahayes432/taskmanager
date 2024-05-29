@@ -105,12 +105,12 @@ export default function ActivityList({
         },
         {
             name: "startDate",
-            selector: (row) => row.startDate,
+            selector: (row) => row.startDate.slice(0, 10),
             sortable: true,
         },
         {
             name: "endDate",
-            selector: (row) => row.endDate,
+            selector: (row) => row.endDate.slice(0, 10),
             sortable: true,
         },
         {
