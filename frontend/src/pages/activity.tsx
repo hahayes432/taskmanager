@@ -1,7 +1,7 @@
 import ActivityList from "../components/activityList";
 import { useState, useEffect } from "react";
 import { activityItem } from "../services/types";
-import GetActivityApiCall from "../services/activityApiCalls";
+import { GetActivityApiCall } from "../services/activityApiCalls";
 
 export default function ActivityPage() {
     //Loading activity item while fetching actual data
@@ -10,9 +10,9 @@ export default function ActivityPage() {
         title: "Loading",
         description: "Loading",
         url: "Loading",
-        startDate: new Date(Date.now()),
-        endDate: new Date(Date.now()),
-        tags: [1],
+        startDate: new Date(Date.now()).toString(),
+        endDate: new Date(Date.now()).toString(),
+        tags: 1,
         status: 1,
         activityType: 1,
     };
@@ -24,8 +24,7 @@ export default function ActivityPage() {
     const getActivityData = async () => {
         try {
             const response = await GetActivityApiCall();
-            const data = await response;
-            setApiActivityData((e) => data);
+            setApiActivityData(() => response);
         } catch (error) {
             console.error(error);
         }
@@ -38,9 +37,22 @@ export default function ActivityPage() {
     return (
         <>
             <div className=" w-full h-auto">
-                <h2 className="w-fit m-auto mt-5 text-4xl">Activities</h2>
+                <div className="w-fit mx-auto mt-4 text-center">
+                    <h2 className="w-fit m-auto mt-5 text-4xl font-bold">
+                        Activities
+                    </h2>
+                    <h3 className="text-lg font-semibold">
+                        You can click the activity row's to click the activity
+                        url and to be able to see the full description if it is
+                        too long to display normally
+                    </h3>
+                </div>
             </div>
-            <ActivityList activityArray={apiActivityData} />
+            <ActivityList
+                setApiActivityData={setApiActivityData}
+                getActivityData={getActivityData}
+                activityArray={apiActivityData}
+            />
         </>
     );
 }

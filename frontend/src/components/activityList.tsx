@@ -1,262 +1,172 @@
-import { useState } from "react";
-import { v4 as uuidv4 } from "uuid"; // fix warnings by generating unique keys in table mapping
+import { Dispatch, SetStateAction, useState } from "react";
 import { activityItem } from "../services/types";
+import DataTable from "react-data-table-component";
+import ActivityCreationForm from "./activityCreationForm";
+import {
+    CreateActivityApiCall,
+    DeleteActivityApiCall,
+} from "../services/activityApiCalls";
 
 export default function ActivityList({
     activityArray,
+    getActivityData,
+    setApiActivityData,
 }: {
     activityArray: activityItem[];
+    getActivityData: CallableFunction;
+    setApiActivityData: Dispatch<SetStateAction<activityItem[]>>;
 }) {
-    const [activityPage, setActivityPage] = useState<number>(0);
-    const [pageStartIndex, setPageStartIndex] = useState<number>(0);
-    const [pageEndIndex, setPageEndIndex] = useState<number>(8);
+    //selected row for delete function
+    const [selectedRow, setSelectedRow] = useState({});
 
-    const itemsPerPage = 8;
-    const buttonLabels: number[] = [];
-    for (let i = 0; i < activityArray.length / itemsPerPage; i++) {
-        buttonLabels.push(i + 1);
+    const [activityInfo, setActivityInfo] = useState({
+        id: 1,
+        title: "",
+        description: "",
+        url: "",
+        startDate: new Date().toString(),
+        endDate: new Date().toString(),
+        tags: 1,
+        status: 1,
+        activityType: 1,
+    });
+    async function handleSubmit() {
+        //create new activity in the database with the form data and call for all the new data to be displayed
+        await CreateActivityApiCall(activityInfo);
+        //get new data to be displayed
+        getActivityData();
+        //reset form fields
+        setActivityInfo(() => {
+            return {
+                id: 1,
+                title: "",
+                description: "",
+                url: "",
+                startDate: new Date().toString(),
+                endDate: new Date().toString(),
+                tags: 1,
+                status: 1,
+                activityType: 1,
+            };
+        });
     }
-    function changePage(e) {
-        const buttonPressed = e.currentTarget.value;
-        let newPage = activityPage; //Couldnt get it to work with just the useState but this sort of works
-        // console.log(newPage);
-        if (buttonPressed === "prev" && newPage > 0) {
-            // previous page unless we are already at the first one
-            newPage = activityPage - 1;
-            setActivityPage((old) => old - 1); // update states for next time
-            setPageStartIndex((old) => activityPage * itemsPerPage);
-            setPageEndIndex(
-                (old) => activityPage * itemsPerPage + itemsPerPage
-            );
-        } else if (
-            buttonPressed === "next" &&
-            newPage < activityArray.length / itemsPerPage - 1
-        ) {
-            //next page if there still is one
-            newPage = activityPage + 1;
-            setActivityPage((old) => old + 1); // update states for next time
-            setPageStartIndex((old) => newPage * itemsPerPage);
-            setPageEndIndex((old) => newPage * itemsPerPage + itemsPerPage);
-        } else {
-            return;
-        }
-        console.log(activityPage);
-        for (let i = 0; i < activityArray.length; i++) {
-            let row = document.getElementById(`${i}`); //a row of the table
-            row?.classList.toggle(
-                "hidden",
-                i < pageStartIndex || i >= pageEndIndex
-            ); //set class to hidden if row is out of range
-            // console.log(row?.classList);
-            // console.log(startIndex, endIndex);
-        }
+    function handleDelete() {
+        //Delete selected row set the new filtered data to display
+        DeleteActivityApiCall(selectedRow[0].id);
+        setApiActivityData((e) => {
+            const filtered = e.filter((item) => item.id !== selectedRow[0].id);
+            return filtered;
+        });
     }
+
+    const paginationOptions = {
+        noRowsPerPage: true,
+    };
+
+    const ExpandedComponent = ({ data }) => {
+        return (
+            <div className="py-1 flex flex-row justify-evenly h-fit">
+                <p className="pb-1">Description: {data.description}</p>
+                <p>
+                    Url:{" "}
+                    <a
+                        className="text-blue-500 hover:text-blue-700"
+                        href={data.url}
+                    >
+                        {data.url}
+                    </a>
+                </p>
+            </div>
+        );
+    };
+
+    const columns = [
+        {
+            name: "id",
+            selector: (row) => row.id,
+            sortable: true,
+            width: "60px",
+        },
+        {
+            name: "title",
+            selector: (row) => row.title,
+            sortable: true,
+        },
+        {
+            name: "description",
+            selector: (row) => row.description,
+            sortable: true,
+            width: "400px",
+        },
+        {
+            name: "url",
+            selector: (row) => row.url,
+            sortable: true,
+            width: "125px",
+        },
+        {
+            name: "startDate",
+            selector: (row) => row.startDate.slice(0, 10),
+            sortable: true,
+        },
+        {
+            name: "endDate",
+            selector: (row) => row.endDate.slice(0, 10),
+            sortable: true,
+        },
+        {
+            name: "tags",
+            selector: (row) => row.tags,
+            sortable: true,
+            width: "90px",
+        },
+        {
+            name: "status",
+            selector: (row) => row.status,
+            sortable: true,
+            width: "90px",
+        },
+        {
+            name: "activityType",
+            selector: (row) => row.activityType,
+            sortable: true,
+            width: "90px",
+        },
+    ];
 
     return (
         <>
-            <div className="mt-10 w-3/4 h-3/4 m-auto what2">
-                <table className="mx-auto w-full h-full bg-neutral-400/50">
-                    <thead>
-                        <tr>
-                            <th className="w-1/12 border border-black/25">
-                                ID
-                            </th>
-                            <th className="w-1/12 border border-black/25">
-                                Title
-                            </th>
-                            <th className="w-1/12 border border-black/25">
-                                Description
-                            </th>
-                            <th className="w-1/12 border border-black/25">
-                                Url
-                            </th>
-                            <th className="w-1/12 border border-black/25">
-                                Start Date
-                            </th>
-                            <th className="w-1/12 border border-black/25">
-                                End Date
-                            </th>
-                            <th className="w-1/12 border border-black/25">
-                                status
-                            </th>
-                            <th className="w-1/12 border border-black/25">
-                                tags
-                            </th>
-                            <th className="w-1/12 border border-black/25">
-                                ActivityType
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {activityArray.map((item, index) => {
-                            if (index < itemsPerPage) {
-                                return (
-                                    <tr id={index.toString()} key={uuidv4()}>
-                                        {/* 
-                                        toString because id cant be type number 
-                                        possibly used to make pages
-                                        */}
-                                        <td
-                                            className=" max-h-6 border border-black/25 px-2 text-center"
-                                            key={uuidv4()}
-                                        >
-                                            {item.id}
-                                        </td>
-                                        <td
-                                            className=" max-h-6 border border-black/25 px-2 text-center"
-                                            key={uuidv4()}
-                                        >
-                                            {item.title}
-                                        </td>
-                                        <td
-                                            className=" max-h-6 border border-black/25 px-2 text-center"
-                                            key={uuidv4()}
-                                            title={item.description}
-                                        >
-                                            {item.description.length >= 37
-                                                ? item.description.slice(
-                                                      0,
-                                                      37
-                                                  ) + "..."
-                                                : item.description}
-                                        </td>
-                                        <td
-                                            className=" max-h-6 border border-black/25 px-2 text-center"
-                                            key={uuidv4()}
-                                        >
-                                            {item.url}
-                                        </td>
-                                        <td
-                                            key={uuidv4()}
-                                            className=" max-h-6 border border-black/25 px-2 text-center"
-                                        >
-                                            <time
-                                                key={uuidv4()}
-                                                dateTime={item.startDate}
-                                            >
-                                                {item.startDate
-                                                    .toString()
-                                                    .slice(0, 10)}
-                                            </time>
-                                        </td>
-                                        <td
-                                            key={uuidv4()}
-                                            className=" max-h-6 border border-black/25 px-2 text-center"
-                                        >
-                                            <time
-                                                key={uuidv4()}
-                                                dateTime={item.endDate}
-                                            >
-                                                {item.endDate
-                                                    .toString()
-                                                    .slice(0, 10)}
-                                            </time>
-                                        </td>
-                                        <td
-                                            className=" max-h-6 border border-black/25 px-2 text-center"
-                                            key={uuidv4()}
-                                        >
-                                            {item.status}
-                                        </td>
-                                        <td
-                                            className=" max-h-6 border border-black/25 px-2"
-                                            key={uuidv4()}
-                                        >
-                                            {item.tags}
-                                        </td>
-                                        <td
-                                            className=" max-h-6 border border-black/25 px-2 text-center"
-                                            key={uuidv4()}
-                                        >
-                                            {item.activityType}
-                                        </td>
-                                    </tr>
-                                );
-                            }
-                            {
-                                /* make first page visible in previous if statement and then make the rest hidden */
-                            }
-                            return (
-                                <tr id={index.toString()} key={uuidv4()}>
-                                    <td
-                                        className="hidden max-h-6 border border-black/25 px-2 text-center"
-                                        key={uuidv4()}
-                                    >
-                                        {uuidv4()}
-                                    </td>
-                                    <td
-                                        className="hidden max-h-6 border border-black/25 px-2 text-center"
-                                        key={uuidv4()}
-                                    >
-                                        {item.name}
-                                    </td>
-                                    <td
-                                        className="hidden max-h-6 border border-black/25 px-2 text-center"
-                                        key={uuidv4()}
-                                    >
-                                        {item.content}
-                                    </td>
-                                    <td
-                                        key={uuidv4()}
-                                        className="hidden max-h-6 border border-black/25 px-2 text-center"
-                                    >
-                                        <time
-                                            key={uuidv4()}
-                                            dateTime={item.startDate}
-                                        />
-                                        {item.startDate.toString().slice(0, 10)}
-                                    </td>
-                                    <td
-                                        key={uuidv4()}
-                                        className="hidden max-h-6 border border-black/25 px-2 text-center"
-                                    >
-                                        <time
-                                            key={uuidv4()}
-                                            dateTime={item.endDate}
-                                        >
-                                            {item.endDate
-                                                .toString()
-                                                .slice(0, 10)}
-                                        </time>
-                                    </td>
-                                    <td
-                                        className="hidden max-h-6 border border-black/25 px-2 text-center"
-                                        key={uuidv4()}
-                                    >
-                                        {item.status}
-                                    </td>
-                                    <td
-                                        className="hidden max-h-6 border border-black/25 px-2"
-                                        key={uuidv4()}
-                                    >
-                                        {item.tags.map(
-                                            (i) => i.toString() + "  "
-                                        )}
-                                    </td>
-                                </tr>
-                            );
-                        })}
-                    </tbody>
-                </table>
-                <div className="bg-yellow-400 w-full flex flex-row row-span-6 justify-end">
-                    <button
-                        value="prev"
-                        className=" w-1/12 border border-black/25"
-                        onClick={(e) => changePage(e)}
-                    >
-                        Previous
-                    </button>
-                    <h1 className=" mx-3 font-bold text-md">
-                        Current page: {activityPage + 1}
-                    </h1>
-                    <button
-                        value="next"
-                        className=" w-1/12 border border-black/25"
-                        onClick={(e) => changePage(e)}
-                    >
-                        Next
-                    </button>
-                </div>
+            <div className="mt-10 w-3/4 h-3/4 m-auto">
+                <DataTable
+                    keyField="id"
+                    columns={columns}
+                    data={activityArray}
+                    pagination
+                    selectableRows
+                    selectableRowsSingle
+                    onSelectedRowsChange={(e) => {
+                        setSelectedRow(() => e.selectedRows);
+                    }}
+                    expandableRows
+                    expandOnRowClicked
+                    expandableRowsHideExpander
+                    expandableRowsComponent={ExpandedComponent}
+                    paginationPerPage={6}
+                    paginationComponentOptions={paginationOptions}
+                />
+            </div>
+            <div className="flex flex-row w-3/4 mx-auto">
+                <ActivityCreationForm
+                    activityInfo={activityInfo}
+                    setActivityInfo={setActivityInfo}
+                    handleSubmit={handleSubmit}
+                />
+                <button
+                    className="p-1 border border-black/25 rounded-md bg-red-400 hover:bg-red-500 w-fit h-fit"
+                    onClick={handleDelete}
+                >
+                    Delete Selected
+                </button>
             </div>
         </>
     );
