@@ -111,7 +111,7 @@ namespace backend
         }
 
         [HttpDelete("DeleteTask")]
-        public IActionResult DeleteTask(int[] id)
+        public IActionResult DeleteTask([FromQuery] int[] id)
         {
             conn.Open();
 
@@ -190,7 +190,7 @@ namespace backend
         }
 
         [HttpDelete("DeleteActivity")]
-        public IActionResult DeleteActivity(int[] id)
+        public IActionResult DeleteActivity([FromQuery] int[] id)
         {
             conn.Open();
 
@@ -258,7 +258,7 @@ namespace backend
         }
 
         [HttpDelete("DeleteTag")]
-        public IActionResult DeleteTag(int[] id)
+        public IActionResult DeleteTag([FromQuery] int[] id)
         {
             conn.Open();
 
@@ -326,7 +326,7 @@ namespace backend
         }
 
         [HttpDelete("DeleteStatus")]
-        public IActionResult DeleteStatus(int[] id)
+        public IActionResult DeleteStatus([FromQuery] int[] id)
         {
             conn.Open();
 
@@ -391,7 +391,7 @@ namespace backend
         }
 
         [HttpDelete("DeleteActivityType")]
-        public IActionResult DeleteActivityType(int[] id)
+        public IActionResult DeleteActivityType([FromQuery] int[] id)
         {
             conn.Open();
 
