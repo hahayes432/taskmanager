@@ -190,16 +190,15 @@ namespace backend
         }
 
         [HttpDelete("DeleteActivity")]
-        public IActionResult DeleteActivity(int id)
+        public IActionResult DeleteActivity(int[] id)
         {
             conn.Open();
-            using var cmd = new NpgsqlCommand("DELETE FROM \"Activity\" WHERE \"Id\" = ($1);", conn)
-            {
-                Parameters =
-    {
-        new() { Value = id }
-    }
-            };
+
+            string query = "DELETE FROM \"Activity\" WHERE \"Id\" = ANY(@ids)";
+
+            using var cmd = new NpgsqlCommand(query, conn);
+
+            cmd.Parameters.AddWithValue("@ids", id);
 
             if (cmd.ExecuteNonQuery() > 0)
             {
@@ -259,16 +258,15 @@ namespace backend
         }
 
         [HttpDelete("DeleteTag")]
-        public IActionResult DeleteTag(int id)
+        public IActionResult DeleteTag(int[] id)
         {
             conn.Open();
-            using var cmd = new NpgsqlCommand("DELETE FROM \"Tag\" WHERE \"Id\" = ($1);", conn)
-            {
-                Parameters =
-    {
-        new() { Value = id }
-    }
-            };
+
+            string query = "DELETE FROM \"Tag\" WHERE \"Id\" = ANY(@ids)";
+
+            using var cmd = new NpgsqlCommand(query, conn);
+
+            cmd.Parameters.AddWithValue("@ids", id);
 
             if (cmd.ExecuteNonQuery() > 0)
             {
@@ -328,16 +326,15 @@ namespace backend
         }
 
         [HttpDelete("DeleteStatus")]
-        public IActionResult DeleteStatus(int id)
+        public IActionResult DeleteStatus(int[] id)
         {
             conn.Open();
-            using var cmd = new NpgsqlCommand("DELETE FROM \"Status\" WHERE \"Id\" = ($1);", conn)
-            {
-                Parameters =
-    {
-        new() { Value = id }
-    }
-            };
+
+            string query = "DELETE FROM \"Status\" WHERE \"Id\" = ANY(@ids)";
+
+            using var cmd = new NpgsqlCommand(query, conn);
+
+            cmd.Parameters.AddWithValue("@ids", id);
 
             if (cmd.ExecuteNonQuery() > 0)
             {
@@ -394,16 +391,15 @@ namespace backend
         }
 
         [HttpDelete("DeleteActivityType")]
-        public IActionResult DeleteActivityType(int id)
+        public IActionResult DeleteActivityType(int[] id)
         {
             conn.Open();
-            using var cmd = new NpgsqlCommand("DELETE FROM \"ActivityType\" WHERE \"Id\" = ($1);", conn)
-            {
-                Parameters =
-    {
-        new() { Value = id }
-    }
-            };
+
+            string query = "DELETE FROM \"ActivityType\" WHERE \"Id\" = ANY(@ids)";
+
+            using var cmd = new NpgsqlCommand(query, conn);
+
+            cmd.Parameters.AddWithValue("@ids", id);
 
             if (cmd.ExecuteNonQuery() > 0)
             {
