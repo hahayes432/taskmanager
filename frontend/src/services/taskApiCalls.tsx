@@ -22,11 +22,15 @@ export async function GetTaskApiCall(amount: number | undefined) {
     // console.log(response.data);
 }
 
-export async function DeleteTaskApiCall(id) {
-    const response = await axios.delete(
-        `https://localhost:7296/TaskManager/DeleteTask?id=${id}`
-    );
-    console.log(response);
+export async function DeleteTaskApiCall(id: number[]) {
+    let url = `https://localhost:7296/TaskManager/DeleteTask?`;
+    for (let i = 0; i < id.length; i++) {
+        url += "id=" + id[i] + "&";
+    }
+    const response = await axios.delete(url.substring(0, url.length - 1));
+    if (response.status !== 200) {
+        console.error(response.statusText);
+    }
 }
 
 export async function CreateTaskApiCall(taskObj: taskItem) {

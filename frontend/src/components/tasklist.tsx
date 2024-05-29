@@ -52,11 +52,22 @@ export default function TaskList({
                 activityId: 1,
             };
         });
-    };
+    }
     const handleDelete = () => {
-        DeleteTaskApiCall(selected[0].id);
+        const ids: number[] = [];
+        selected.forEach((item) => {
+            ids.push(item.id);
+        });
+        DeleteTaskApiCall(ids);
         setApiData((old) => {
-            const newData = old.filter((item) => item.id !== selected[0].id);
+            const newData = old.filter((item) => {
+                for (let i = 0; i < ids.length; i++) {
+                    //if deleted id is the same as the same dont return it with the new data
+                    if (item.id === ids[i]) return false;
+                }
+                //if the item id isn the same as one of the deleted ones keep it in the new data
+                return true;
+            });
             return newData;
         });
     };
@@ -117,7 +128,6 @@ export default function TaskList({
                     data={data}
                     pagination
                     selectableRows
-                    selectableRowsSingle
                     onSelectedRowsChange={(e) => {
                         setSelected(() => e.selectedRows);
                     }}
