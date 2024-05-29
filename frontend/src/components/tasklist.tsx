@@ -34,9 +34,9 @@ export default function TaskList({
         noRowsPerPage: true,
     };
 
-    const handleSubmit = () => {
+    async function handleSubmit() {
         //create the new item from the form
-        CreateTaskApiCall(taskInfo);
+        await CreateTaskApiCall(taskInfo);
         //should update the data
         getApiData();
         //Reset the form
