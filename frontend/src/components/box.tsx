@@ -12,14 +12,11 @@ export default function Box({
     item: number;
     setApiTasks: VoidFunction;
 }) {
-    function handleClick() {
+    async function handleClick() {
         if (elementtype === "task") {
-            DeleteTaskApiCall(item);
-            const getNewTaskData = async () => {
-                const res = await GetTaskApiCall(3);
-                setApiTasks((old) => res);
-            };
-            getNewTaskData();
+            await DeleteTaskApiCall(item);
+            const res = await GetTaskApiCall(3);
+            setApiTasks((old) => res);
         }
     }
     return (
@@ -27,9 +24,6 @@ export default function Box({
             {children}
             <button
                 onClick={handleClick}
-                item={item}
-                elementtype={elementtype}
-                setApiTasks={setApiTasks}
                 className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full -ml-1 mt-2"
             >
                 Complete

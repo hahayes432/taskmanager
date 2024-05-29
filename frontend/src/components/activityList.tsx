@@ -30,9 +30,10 @@ export default function ActivityList({
         status: 1,
         activityType: 1,
     });
-    function handleSubmit() {
+    async function handleSubmit() {
         //create new activity in the database with the form data and call for all the new data to be displayed
-        CreateActivityApiCall(activityInfo);
+        await CreateActivityApiCall(activityInfo);
+        //get new data to be displayed
         getActivityData();
         //reset form fields
         setActivityInfo(() => {
