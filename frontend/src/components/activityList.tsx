@@ -1,22 +1,62 @@
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { activityItem } from "../services/types";
 import DataTable from "react-data-table-component";
+import ActivityCreationForm from "./activityCreationForm";
+import {
+    CreateActivityApiCall,
+    DeleteActivityApiCall,
+} from "../services/activityApiCalls";
 
 export default function ActivityList({
     activityArray,
-    setSelectedRow,
+    getActivityData,
+    setApiActivityData,
 }: {
     activityArray: activityItem[];
-    setSelectedRow: Dispatch<SetStateAction<object>>;
+    getActivityData: CallableFunction;
+    setApiActivityData: Dispatch<SetStateAction<activityItem[]>>;
 }) {
-    const rows: activityItem[] = [];
-    activityArray.forEach((item) => {
-        rows.push({
-            ...item,
-            startDate: item.startDate.toString().slice(0, 10),
-            endDate: item.endDate.toString().slice(0, 10),
-        });
+    //selected row for delete function
+    const [selectedRow, setSelectedRow] = useState({});
+
+    const [activityInfo, setActivityInfo] = useState({
+        id: 1,
+        title: "",
+        description: "",
+        url: "",
+        startDate: new Date().toString(),
+        endDate: new Date().toString(),
+        tags: 1,
+        status: 1,
+        activityType: 1,
     });
+    function handleSubmit() {
+        //create new activity in the database with the form data and call for all the new data to be displayed
+        CreateActivityApiCall(activityInfo);
+        getActivityData();
+        //reset form fields
+        setActivityInfo(() => {
+            return {
+                id: 1,
+                title: "",
+                description: "",
+                url: "",
+                startDate: new Date().toString(),
+                endDate: new Date().toString(),
+                tags: 1,
+                status: 1,
+                activityType: 1,
+            };
+        });
+    }
+    function handleDelete() {
+        //Delete selected row set the new filtered data to display
+        DeleteActivityApiCall(selectedRow[0].id);
+        setApiActivityData((e) => {
+            const filtered = e.filter((item) => item.id !== selectedRow[0].id);
+            return filtered;
+        });
+    }
 
     const paginationOptions = {
         noRowsPerPage: true,
@@ -44,6 +84,7 @@ export default function ActivityList({
             name: "id",
             selector: (row) => row.id,
             sortable: true,
+            width: "60px",
         },
         {
             name: "title",
@@ -54,13 +95,13 @@ export default function ActivityList({
             name: "description",
             selector: (row) => row.description,
             sortable: true,
-            width: "500px",
+            width: "400px",
         },
         {
             name: "url",
             selector: (row) => row.url,
             sortable: true,
-            width: "150px",
+            width: "125px",
         },
         {
             name: "startDate",
@@ -96,8 +137,9 @@ export default function ActivityList({
         <>
             <div className="mt-10 w-3/4 h-3/4 m-auto">
                 <DataTable
+                    keyField="id"
                     columns={columns}
-                    data={rows}
+                    data={activityArray}
                     pagination
                     selectableRows
                     selectableRowsSingle
@@ -111,6 +153,19 @@ export default function ActivityList({
                     paginationPerPage={6}
                     paginationComponentOptions={paginationOptions}
                 />
+            </div>
+            <div className="flex flex-row w-3/4 mx-auto">
+                <ActivityCreationForm
+                    activityInfo={activityInfo}
+                    setActivityInfo={setActivityInfo}
+                    handleSubmit={handleSubmit}
+                />
+                <button
+                    className="p-1 border border-black/25 rounded-md bg-red-400 hover:bg-red-500 w-fit h-fit"
+                    onClick={handleDelete}
+                >
+                    Delete Selected
+                </button>
             </div>
         </>
     );

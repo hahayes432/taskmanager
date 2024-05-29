@@ -32,7 +32,7 @@ export default function ActivityCreationForm({
             <Popup
                 trigger={
                     <button className="border border-black/25 p-1 w-fit h-fit ml-auto rounded-md bg-green-400 hover:bg-green-600">
-                        Create task
+                        Create activity
                     </button>
                 }
                 modal
