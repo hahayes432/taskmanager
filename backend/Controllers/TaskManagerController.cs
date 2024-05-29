@@ -78,14 +78,14 @@ namespace backend
             return taskList;
         }
 
-         [HttpGet("GetTasksFrontpage")]
+        [HttpGet("GetTasksFrontpage")]
         public List<Tasks> GetTasksFrontpage(int amount)
         {
             conn.Open();
             // Get closest to end date from database that exist
             var cmd = new NpgsqlCommand("SELECT * FROM \"Task\" ORDER BY \"EndDate\" ASC LIMIT ($1)", conn)
             {
-                Parameters = 
+                Parameters =
                 {
                     new() {Value = amount},
                 }
@@ -111,16 +111,15 @@ namespace backend
         }
 
         [HttpDelete("DeleteTask")]
-        public IActionResult DeleteTask(int id)
+        public IActionResult DeleteTask(int[] id)
         {
             conn.Open();
-            using var cmd = new NpgsqlCommand("DELETE FROM \"Task\" WHERE \"Id\" = ($1);", conn)
-            {
-                Parameters =
-    {
-        new() { Value = id }
-    }
-            };
+
+            string query = "DELETE FROM \"Task\" WHERE \"Id\" = ANY(@ids)";
+
+            using var cmd = new NpgsqlCommand(query, conn);
+
+            cmd.Parameters.AddWithValue("@ids", id);
 
             if (cmd.ExecuteNonQuery() > 0)
             {
